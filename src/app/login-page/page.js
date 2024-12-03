@@ -1,6 +1,6 @@
 import LoginForm from "@/components/login/login";
 
-const Home = () => {
+const LoginPage = () => {
   return (
     <main>
       <LoginForm />
@@ -8,4 +8,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default LoginPage;
