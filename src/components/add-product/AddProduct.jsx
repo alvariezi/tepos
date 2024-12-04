@@ -46,7 +46,7 @@ const AddProduct = () => {
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-xl font-semibold text-gray-800">
+          <h1 className="text-[20px] font-semibold text-gray-800">
             Product
           </h1>
           <div className="text-right">

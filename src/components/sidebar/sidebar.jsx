@@ -30,7 +30,7 @@ const Sidebar = ({ isOpen, isMobile }) => {
           Product
         </Link>
         <Link
-          href=""
+          href="cashier-page"
           className="flex items-center text-[18px] mb-[5px] px-[15px] py-[8px] text-[#575757] hover:text-white hover:bg-[#205FFF] rounded transition-all duration-300"
         >
           <ShoppingCartIcon className="h-6 w-6 mr-[8px]" />
