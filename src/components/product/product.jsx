@@ -48,7 +48,7 @@ const Product = () => {
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-xl font-semibold text-gray-800">
+          <h1 className="text-[20px] font-semibold text-gray-800">
             Product
           </h1>
           <div className="text-right">
@@ -65,7 +65,7 @@ const Product = () => {
         <div className="flex justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm space-x-3 mb-[20px]">
           <div className="flex items-center space-x-3">
             <div className="bg-white p-[8px] rounded-md shadow-sm">
-              <select className="border border-[#D0D0D0] rounded-md px-[16px] py-[8px] focus:outline-none focus:ring-2 focus:ring-[#205FFF]">
+              <select className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px]">
                 <option>All Category</option>
                 <option>Snack</option>
                 <option>Main Course</option>
@@ -73,7 +73,7 @@ const Product = () => {
             </div>
             <Link
               href="/add-product-page"
-              className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[14px] font-[500px] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[12px] md:text-[14px] font-[500] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Add Product
             </Link>
@@ -86,7 +86,7 @@ const Product = () => {
             <thead>
               <tr className="bg-[#EEF0F1] border-b">
                 <th className="p-[16px] text-left text-[14px]">Product</th>
-                <th className="p-[16px] text-left text-[14px]">Category</th>
+                <th className="p-[16px] text-left text-[14px] hidden md:table-cell">Category</th>
                 <th className="p-[16px] text-left text-[14px]">Price</th>
                 <th className="p-[16px] text-left text-[14px]">Actions</th>
               </tr>
@@ -100,10 +100,10 @@ const Product = () => {
                     className="w-10 h-10 rounded-md"
                   />
                   <span className="text-gray-800 word-break">
-                    Seblak
+                    Seblak 
                   </span>
                 </td>
-                <td className="p-[16px] text-[14px] border-b space-y-2">Snack</td>
+                <td className="p-[16px] text-[14px] border-b space-y-2 hidden md:table-cell">Snack</td>
                 <td className="p-[16px] text-[14px] text-[#205FFF] border-b space-y-2">Rp. 10.000</td>
                 <td className="p-[16px] text-[14px] space-y-2">
                   <Link 
