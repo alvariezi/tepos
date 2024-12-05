@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
-const AddProduct = () => {
+const Payment = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -47,7 +47,7 @@ const AddProduct = () => {
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
           <h1 className="text-[20px] font-semibold text-gray-800">
-            Product
+            Payment
           </h1>
           <div className="text-right">
             <p className="text-[#1E1E1E] text-[14px] font-[600]">
@@ -80,101 +80,83 @@ const AddProduct = () => {
               />
             </svg>
           </button>
-          <h2 className="text-[15px] font-[500] text-[#1E1E1E]">Add Product</h2>
+          <h2 className="text-[15px] font-[500] text-[#1E1E1E]">Back</h2>
         </div>
 
         {/* Product Form */}
         <div className="bg-white rounded-md shadow-md p-[16px]">
           <form>
-            {/* Name Product */}
-            <div className="flex items-center mb-[16px]">
+            {/* Pay */}
+            <div className="flex items-center mb-[16px] lg:w-[950px] md:w-[400px] w-[270px]">
               <label
-                htmlFor="nameProduct"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="pay"
+                className="w-1/4 text-[#5F5F5F] font-[600] text-[13px] md:text-[14px]"
               >
-                Name Product
+                Pay
               </label>
               <input
                 type="text"
-                id="nameProduct"
+                id="pay"
                 placeholder=""
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+                className="w-3/4 ml-[30px] md:ml-0 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-sm"
               />
             </div>
 
-            {/* Selling Price */}
-            <div className="flex items-center mb-[16px]">
+            {/* Retrun */}
+            <div className="flex items-center mb-[16px] lg:w-[950px] md:w-[400px] w-[270px]">
               <label
-                htmlFor="sellingPrice"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="return"
+                className="w-1/4 text-[#5F5F5F] font-[600] text-[13px] md:text-[14px]"
               >
-                Selling Price
+                Retrun
               </label>
               <input
                 type="text"
-                id="sellingPrice"
+                id="return"
                 placeholder=""
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                className="w-3/4 p-[8px] ml-[30px] md:ml-0 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+              />
+            </div>
+            
+            {/* Buyer Name */}
+            <div className="flex items-center mb-[16px] lg:w-[950px] md:w-[400px] w-[270px]">
+              <label
+                htmlFor="buyerName"
+                className="w-1/4 text-[#5F5F5F] font-[600] text-[13px] md:text-[14px]"
+              >
+                Buyer Name
+              </label>
+              <input
+                type="text"
+                id="buyerName"
+                placeholder=""
+                className="w-3/4 p-[8px] ml-[30px] md:ml-0 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
               />
             </div>
 
-            {/* Description Product */}
-            <div className="flex items-start mb-4">
+            {/* Information */}
+            <div className="flex items-start mb-[16px] lg:w-[950px] md:w-[400px] w-[270px]">
               <label
-                htmlFor="DescriptionProduct"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="information"
+                className="w-1/4 text-[#5F5F5F] font-[600] text-[13px] md:text-[14px]"
               >
-                Description Product
+                Information
               </label>
               <textarea
-                id="DescriptionProduct"
+                id="information"
                 rows="4"
-                placeholder=""
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                placeholder="Opsional"
+                className="w-3/4 ml-[20px] md:ml-0 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
               ></textarea>
             </div>
 
-            {/* Category */}
-            <div className="flex items-center mb-4">
-              <label
-                htmlFor="Category"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
-              >
-                Category
-              </label>
-              <select
-                id="Category"
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
-              >
-                <option>Pilih Kategori</option>
-                <option>Kategori 1</option>
-                <option>Kategori 2</option>
-              </select>
-            </div>
-
-            {/* Upload Image */}
-            <div className="flex items-center mb-4">
-              <label
-                htmlFor="imageUpload"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
-              >
-                Upload Image
-              </label>
-              <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
-              />
-            </div>
-
             {/* Button Save dan Delete */}
-            <div className="flex justify-end space-x-4">
+            <div className="flex justify-end space-x-4 lg:mr-[85px] md:mr-[35px]">
               <button
                 type="button"
-                className="bg-[#205FFF] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="bg-[#00A95A] text-white px-[16px] lg:px-[65px] py-[8px] md:px-[30px] rounded-md text-[14px] font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
-                Save
+                Pay
               </button>
             </div>
           </form>
@@ -184,4 +166,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default Payment;

@@ -92,9 +92,9 @@ const Settings = () => {
                 className="absolute inset-y-0 right-3 flex items-center"
               >
                 {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                  <EyeSlashIcon className="h-5 w-5 mb-4 md:mb-0 text-gray-500" />
                 ) : (
-                  <EyeIcon className="h-5 w-5 text-gray-500" />
+                  <EyeIcon className="h-5 w-5 mb-4 md:mb-0 text-gray-500" />
                 )}
               </button>
             </div>
