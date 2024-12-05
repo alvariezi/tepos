@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
 import { TrashIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const Cart = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -81,7 +82,7 @@ const Cart = () => {
         {/* Cart List */}
         <div
           className="bg-white rounded-md shadow-md p-4 grid grid-cols-1 gap-4 overflow-y-auto"
-          style={{ maxHeight: "calc(100vh - 200px)" }} // Adjusted maxHeight to keep space for the bottom bar
+          style={{ maxHeight: "calc(100vh - 200px)" }}
         >
           <div className="bg-white border rounded-md shadow-sm p-4 flex flex-col relative">
             <div className="flex items-center">
@@ -122,9 +123,11 @@ const Cart = () => {
             <p className="text-[14px] md:text-[20px] font-[600]">Total Payment :</p>
             <p className="text-[14px] text-[#205FFF] md:text-[20px] font-[600]"> Rp. 10.000</p>
           </div>
-          <button className="bg-[#205FFF] text-white lg:mr-[250px] md:mr-[250px] px-4 lg:px-[200px] md:px-[50px] py-2 rounded-md hover:bg-blue-600">
-            Payment
-          </button>
+          <Link href="/payment-page">
+            <button className="bg-[#205FFF] text-white lg:mr-[250px] md:mr-[250px] px-4 lg:px-[200px] md:px-[50px] py-2 rounded-md hover:bg-blue-500">
+              Payment
+            </button>
+          </Link>
         </div>
       </div>
     </div>
