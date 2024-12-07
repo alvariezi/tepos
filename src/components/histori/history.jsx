@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline'; // Import TrashIcon
-import Link from "next/link";
+import { Bars3Icon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline'; 
 
 const History = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -108,7 +107,7 @@ const History = () => {
                 <td className="p-4 text-sm text-gray-600">2024-11-05</td>
                 <td className="p-4 text-sm text-gray-600">09:37</td>
                 <td className="p-4 text-sm text-[#205FFF]">Rp. 10.000</td>
-                <td className="p-4 text-sm text-center">
+                <td className="p-4 text-sm">
                   <button
                     className="text-[#FF0000] hover:text-gray-700"
                   >

@@ -47,10 +47,12 @@ const Sidebar = ({ isOpen, isMobile }) => {
       
       {/* Logout Button */}
       <div className="absolute bottom-10 left-0 w-full">
-        <button className="flex items-center justify-center md:ml-[15px] md:py-[12px] md:px-[40px] py-[10px] px-[15px] ml-[15px] text-[14px] text-white bg-[#000000] hover:bg-gray-800 rounded-lg transition-all duration-300">
-          <ArrowLeftEndOnRectangleIcon className="h-5 w-5 mr-[5px]" />
-          Log Out
-        </button>
+        <Link href="/">
+          <button className="flex items-center justify-center md:ml-[15px] md:py-[12px] md:px-[40px] py-[10px] px-[15px] ml-[15px] text-[14px] text-white bg-[#000000] hover:bg-gray-800 rounded-lg transition-all duration-300">
+            <ArrowLeftEndOnRectangleIcon className="h-5 w-5 mr-[5px]" />
+            Log Out
+          </button>
+        </Link>
       </div>
     </div>
   );
