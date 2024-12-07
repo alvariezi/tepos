@@ -1,9 +1,9 @@
-import LoginForm from "@/components/login/login";
+import LandingPage from "@/components/landing-page/landing";
 
 const Home = () => {
   return (
     <main>
-      <LoginForm />
+      <LandingPage />
     </main>
   );
 };

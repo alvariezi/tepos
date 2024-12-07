@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, XMarkIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline'; // Mengganti TrashIcon dengan EllipsisHorizontalIcon
+import { Bars3Icon, PencilSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from "next/link";
 
 const Product = () => {
@@ -109,7 +109,7 @@ const Product = () => {
                   <Link 
                   href="/edit-product-page"
                   className="text-[#747474] hover:text-gray-700">
-                    <EllipsisHorizontalIcon className="h-5 w-5" />
+                    <PencilSquareIcon className="h-5 w-5" />
                   </Link>
                 </td>
               </tr>
