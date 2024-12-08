@@ -8,6 +8,7 @@ import Link from "next/link";
 const Cart = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -16,6 +17,21 @@ const Cart = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleIncrement = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const handleDecrement = () => {
+    setQuantity(prev => (prev > 1 ? prev - 1 : prev));
+  };
+
+  const handleChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    if (!isNaN(value) && value > 0) {
+      setQuantity(value);
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-[#EEF0F1]">
@@ -103,14 +119,26 @@ const Cart = () => {
             </button>
 
             {/* Qty Controller */}
-            <div className={`flex items-center md:ml-[80px] mt-2 space-x-2`}>
-              <button className="bg-[#205FFF] text-white md:text-[25px] font-[600] px-2 py-1 md:px-3 md:py-2 rounded-md hover:bg-gray-300 hover:text-black text-sm">
+            <div className="flex items-center md:ml-[80px] mt-2 space-x-2">
+              <button
+                className="bg-[#205FFF] text-white md:text-[25px] font-[600] px-2 py-1 md:px-3 md:py-2 rounded-md hover:bg-gray-300 hover:text-black text-sm"
+                onClick={handleDecrement}
+              >
                 -
               </button>
-              <span className="text-lg font-medium">1</span>
-              <button className="bg-[#205FFF] text-white md:text-[25px] font-[600] px-2 py-1 md:px-3 md:py-2 rounded-md hover:bg-gray-300 hover:text-black text-sm">
-                +
-              </button>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={handleChange}
+                className="text-center w-[50px] md:w-[60px] border rounded-md text-lg font-medium focus:outline-none focus:ring-2 focus:ring-[#205FFF]"
+                />
+                <button
+                  className="bg-[#205FFF] text-white md:text-[25px] font-[600] px-2 py-1 md:px-3 md:py-2 rounded-md hover:bg-gray-300 hover:text-black text-sm"
+                  onClick={handleIncrement}
+                >
+                  +
+                </button>
             </div>
           </div>
         </div>

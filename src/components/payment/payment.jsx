@@ -151,7 +151,7 @@ const Payment = () => {
             </div>
 
             {/* Button Save dan Delete */}
-            <div className="flex justify-end space-x-4 lg:mr-[85px] md:mr-[35px]">
+            <div className="flex justify-end space-x-4 mr-[10px] lg:mr-[85px] md:mr-[35px]">
               <button
                 type="button"
                 className="bg-[#00A95A] text-white px-[16px] lg:px-[65px] py-[8px] md:px-[30px] rounded-md text-[14px] font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
