@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, PencilSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import Link from "next/link";
+import { Bars3Icon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline'; 
 
-const Product = () => {
+const History = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -49,7 +48,7 @@ const Product = () => {
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
           <h1 className="text-[20px] font-semibold text-gray-800">
-            Product
+            History
           </h1>
           <div className="text-right">
             <p className="text-[#1E1E1E] text-[14px] font-[600]">
@@ -64,61 +63,89 @@ const Product = () => {
         {/* Buttons Section */}
         <div className="flex justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm space-x-3 mb-[20px]">
           <div className="flex items-center space-x-3">
+            <input
+              type="text"
+              id="searchDate"
+              placeholder="Search Date"
+              className="w-3/4 p-[8px] text-[12px] px-[16px] md:text-[16px] placeholder:text-[#1E1E1E] placeholder:font-[500] md:ml-0 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+            />
             <div className="bg-white p-[8px] rounded-md shadow-sm">
               <select className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px]">
-                <option>All Category</option>
-                <option>Snack</option>
-                <option>Main Course</option>
+                <option>All Status</option>
+                <option>Status 1</option>
+                <option>Status 2</option>
               </select>
             </div>
-            <Link
-              href="/add-product-page"
-              className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[12px] md:text-[14px] font-[500] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              Add Product
-            </Link>
           </div>
         </div>
 
         {/* Product Table */}
         <div className="bg-white rounded-md shadow-md overflow-x-auto">
-          <table className="table-auto w-full border-collapse">
+          <table className="hidden md:table table-auto w-full border-collapse">
+            {/* Title Table */}
             <thead>
               <tr className="bg-[#EEF0F1] border-b">
-                <th className="p-[16px] text-left text-[14px]">Product</th>
-                <th className="p-[16px] text-left text-[14px] hidden md:table-cell">Category</th>
-                <th className="p-[16px] text-left text-[14px]">Price</th>
-                <th className="p-[16px] text-left text-[14px]">Actions</th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Product</th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Date</th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Time</th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Price</th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Actions</th>
               </tr>
             </thead>
+
+            {/* Dekstop Table */}
             <tbody>
-              <tr className="border-b">
-                <td className="p-4 text-sm flex items-center space-x-3 border-b space-y-2">
+              <tr className="border-b hover:bg-gray-100">
+                <td className="p-4 text-sm text-gray-800 flex items-center space-x-3">
                   <img
                     src="/logn&regist.png"
-                    alt="product"
+                    alt="Product"
                     className="w-10 h-10 rounded-md"
                   />
-                  <span className="text-gray-800 word-break">
-                    Seblak 
-                  </span>
+                  <span>Seblak</span>
                 </td>
-                <td className="p-[16px] text-[14px] border-b space-y-2 hidden md:table-cell">Snack</td>
-                <td className="p-[16px] text-[14px] text-[#205FFF] border-b space-y-2">Rp. 10.000</td>
-                <td className="p-[16px] text-[14px] space-y-2">
-                  <Link 
-                  href="/edit-product-page"
-                  className="text-[#747474] hover:text-gray-700">
-                    <PencilSquareIcon className="h-5 w-5" />
-                  </Link>
+                <td className="p-4 text-sm text-gray-600">2024-11-05</td>
+                <td className="p-4 text-sm text-gray-600">09:37</td>
+                <td className="p-4 text-sm text-[#205FFF]">Rp. 10.000</td>
+                <td className="p-4 text-sm">
+                  <button
+                    className="text-[#FF0000] hover:text-gray-700"
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
+
+          {/* Mobile Table */}
+          <div className="grid gap-4 md:hidden bg-white p-4">
+            <div className="bg-gray-50 border rounded-md shadow-sm p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <img
+                    src="/logn&regist.png"
+                    alt="Seblak"
+                    className="w-16 h-16 object-cover rounded-md"
+                  />
+                  <div>
+                    <p className="text-base font-semibold text-gray-800">Seblak</p>
+                    <p className="text-sm text-gray-600">2024-11-05 | 09:37</p>
+                    <p className="text-sm font-medium text-[#205FFF]">Rp. 10.000</p>
+                  </div>
+                </div>
+                <button
+                  className="bg-[#FF0000] text-white p-2 rounded-md hover:bg-red-600"
+                >
+                  <TrashIcon className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Product;
+export default History;

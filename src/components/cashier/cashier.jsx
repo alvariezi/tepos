@@ -56,7 +56,7 @@ const Cashier = () => {
         </div>
 
         {/* Header Section */}
-        <div className="bg-white p-[15px] rounded-md shadow-sm mb-[10px] flex flex-col md:flex-row md:items-center justify-between">
+        <div className="bg-white p-[10px] md:p-[15px] rounded-md shadow-sm mb-[20px] flex flex-col md:flex-row md:items-center justify-between">
           <div className="flex items-center mb-2 md:mb-0 ml-[7px]">
             <h2 className="text-[16px] font-[500] text-[#1E1E1E]">List Menu</h2>
           </div>
@@ -64,7 +64,7 @@ const Cashier = () => {
 
             {/* Filter Category */}
             <div className="bg-white p-[8px] rounded-md shadow-sm">
-              <select className="border border-[#D0D0D0] rounded-md px-[12px] py-[8px] text-[#1E1E1E] font-[500] focus:outline-none focus:ring-2 focus:ring-[#205FFF] lg:w-[400px]">
+              <select className="border border-[#D0D0D0] text-[12px] md:text-[16px] rounded-md px-[12px] lg:px-[16px] py-[8px] text-[#1E1E1E] font-[500] focus:outline-none focus:ring-2 focus:ring-[#205FFF] lg:w-[400px]">
                 <option className="py-2">All Category</option>
                 <option className="py-2">Drinks</option>
                 <option className="py-2">Food</option>
@@ -78,7 +78,7 @@ const Cashier = () => {
 
             {/* Cart */}
             <Link href="/cart-page">
-              <button className="bg-[#205FFF] text-white px-4 py-2 rounded-md hover:bg-[#154FCC] flex items-center space-x-2">
+              <button className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[12px] md:text-[14px] font-[500] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center space-x-2">
                 <ShoppingCartIcon className="h-5 w-5" />
                 <span>Cart</span>
               </button>
