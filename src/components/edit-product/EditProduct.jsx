@@ -98,7 +98,7 @@ const EditProduct = () => {
                 type="text"
                 id="nameProduct"
                 placeholder=""
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-sm"
               />
             </div>
 
@@ -114,7 +114,7 @@ const EditProduct = () => {
                 type="text"
                 id="sellingPrice"
                 placeholder=""
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
               />
             </div>
 
@@ -130,7 +130,7 @@ const EditProduct = () => {
                 id="DescriptionProduct"
                 rows="4"
                 placeholder=""
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
               ></textarea>
             </div>
 
@@ -144,7 +144,7 @@ const EditProduct = () => {
               </label>
               <select
                 id="Category"
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
               >
                 <option>Pilih Kategori</option>
                 <option>Kategori 1</option>
@@ -164,7 +164,7 @@ const EditProduct = () => {
                 type="file"
                 id="imageUpload"
                 accept="image/*"
-                className="w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
               />
             </div>
 
