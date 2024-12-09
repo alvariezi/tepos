@@ -7,6 +7,12 @@ import { useRouter } from "next/navigation";
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter(); 
 
   const togglePasswordVisibility = () => {
@@ -17,13 +23,54 @@ const RegisterForm = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const navigateTologin = () => {
+  const navigateToLogin = () => {
     router.push("/login-page");  
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match.");
+      return;
+    }
+
+    const data = {
+      username,
+      email,
+      password,
+    };
+
+    try {
+      const response = await fetch("/api/admin/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccessMessage(result.message);
+        setTimeout(() => {
+          navigateToLogin();
+        }, 2000);
+      } else {
+        setErrorMessage(result.message);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      setErrorMessage("An error occurred during registration.");
+    }
   };
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
-      {/* Left Section */}
+      {/* Img Section */}
       <div className="md:w-[50%] bg-blue-500 lg:flex md:flex justify-center items-center p-4 hidden">
         <img
           src="/logn&regist.png"
@@ -32,7 +79,7 @@ const RegisterForm = () => {
         />
       </div>
 
-      {/* Right Section */}
+      {/* Form Section */}
       <div className="flex-1 flex flex-col justify-center p-4">
         <h1 className="text-[40px] md:text-[60px] leading-[72.3px] text-[#205FFF] font-[600] font-russo text-center mb-[20px]">
           tePOS
@@ -40,7 +87,9 @@ const RegisterForm = () => {
         <p className="mb-[10px] text-[16px] md:text-[18px] font-bold text-center">
           Create your account
         </p>
-        <form className="space-y-4 mx-auto max-w-[400px] w-full">
+        {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+        {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
+        <form className="space-y-4 mx-auto max-w-[400px] w-full" onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
@@ -48,6 +97,8 @@ const RegisterForm = () => {
               name="username"
               placeholder="Username"
               required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-1 block w-full p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
             />
           </div>
@@ -58,6 +109,8 @@ const RegisterForm = () => {
               name="email"
               placeholder="Email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
             />
           </div>
@@ -68,6 +121,8 @@ const RegisterForm = () => {
               name="password"
               placeholder="Password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="mt-1 block w-full mb-[20px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
             />
             <button
@@ -76,9 +131,9 @@ const RegisterForm = () => {
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               {showPassword ? (
-                <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                <EyeSlashIcon className="h-5 w-5 text-[#090A0A]" />
               ) : (
-                <EyeIcon className="h-5 w-5 text-gray-500" />
+                <EyeIcon className="h-5 w-5 text-[#090A0A]" />
               )}
             </button>
           </div>
@@ -89,6 +144,8 @@ const RegisterForm = () => {
               name="confirmPassword"
               placeholder="Confirm Password"
               required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="mt-1 block w-full mb-[20px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
             />
             <button
@@ -114,7 +171,7 @@ const RegisterForm = () => {
           </p>
           <button
             type="button"
-            onClick={navigateTologin} 
+            onClick={navigateToLogin} 
             className="w-full bg-[#000000] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-gray-700 transition-all duration-300 ease-in-out border-[2px]"
           >
             Login
