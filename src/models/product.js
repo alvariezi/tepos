@@ -1,4 +1,4 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
@@ -11,5 +11,4 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const product = models.product || mongoose.model("Product", productSchema);
-export default product;
+export default productSchema;
