@@ -11,7 +11,7 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const navigateToRegister = () => {
+  const navigateToRegistration = () => {
     router.push("/register-page");  
   };
 
@@ -82,10 +82,10 @@ const LoginForm = () => {
           </p>
           <button
             type="button"
-            onClick={navigateToRegister} 
+            onClick={navigateToRegistration} 
             className="w-full bg-[#000000] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-gray-700 transition-all duration-300 ease-in-out border-[2px]"
           >
-            Register
+            Registration
           </button>
         </form>
       </div>
