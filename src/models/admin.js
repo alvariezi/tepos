@@ -1,4 +1,5 @@
 import mongoose, { Schema, models } from "mongoose";
+import productSchema from "./product";
 
 const adminSchema = new Schema(
   {
@@ -14,6 +15,7 @@ const adminSchema = new Schema(
       type: String,
       require: true,
     },
+    product: [productSchema],
   },
   {
     timestamps: true,
