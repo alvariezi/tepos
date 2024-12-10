@@ -5,15 +5,15 @@ const adminSchema = new Schema(
   {
     username: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     product: [productSchema],
   },
@@ -22,5 +22,6 @@ const adminSchema = new Schema(
   }
 );
 
-const adminCol = models.admin || mongoose.model("Admin", adminSchema);
+const adminCol = models.Admin || mongoose.model("Admin", adminSchema);
+
 export default adminCol;
