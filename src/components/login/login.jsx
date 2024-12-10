@@ -1,27 +1,88 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
+import Popup from "../popupLoginRegist/Popup"; 
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter(); 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState("");
+  const router = useRouter();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const navigateToRegistration = () => {
-    router.push("/register-page");  
+  const navigateToRegister = () => {
+    router.push("/register-page");
   };
 
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   const navigateToProduct = () => {
-    router.push("/product-page");  
+    router.push("/product-page");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      username,
+      password,
+    };
+
+    setIsLoading(true);
+
+    try {
+      await delay(2000);
+
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      await delay(1500);
+
+      if (response.ok) {
+        setPopupMessage(result.message || "Login berhasil!");
+        setPopupType("success");
+        setShowPopup(true);
+        setToken(result.token || "Token tidak tersedia"); 
+        await delay(1500);
+        navigateToProduct();
+      } else {
+        setPopupMessage(result.error || "Login gagal, coba lagi!");
+        setPopupType("error");
+        setShowPopup(true);
+      }
+    } catch (error) {
+      setPopupMessage("Terjadi kesalahan saat login.");
+      setPopupType("error");
+      setShowPopup(true);
+    } finally {
+      await delay(1000);
+      setIsLoading(false);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
-      {/* Left Section */}
+      {/* Img Section */}
       <div className="md:w-[50%] bg-blue-500 lg:flex md:flex justify-center items-center p-4 hidden">
         <img
           src="/logn&regist.png"
@@ -30,15 +91,23 @@ const LoginForm = () => {
         />
       </div>
 
-      {/* Right Section */}
+      {/* Form Section */}
       <div className="flex-1 flex flex-col justify-center p-4">
         <h1 className="text-[40px] md:text-[60px] leading-[72.3px] text-[#205FFF] font-[600] font-russo text-center mb-[20px]">
           tePOS
         </h1>
+        {token && (
+          <p className="text-center text-[8px] text-gray-500 mt-2">
+            Token: <span className="font-mono text-blue-600">{token}</span>
+          </p>
+        )}
         <p className="mb-[10px] text-[16px] md:text-[18px] font-bold text-center">
-          Hi, Welcome Back to Flowpos!
+          Hi, Welcome Back to tePOS!
         </p>
-        <form className="space-y-4 mx-auto max-w-[400px] w-full">
+        <form
+          className="space-y-4 mx-auto max-w-[400px] w-full"
+          onSubmit={handleSubmit}
+        >
           <div>
             <input
               type="text"
@@ -46,7 +115,10 @@ const LoginForm = () => {
               name="username"
               placeholder="Username"
               required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-1 block w-full p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              disabled={isLoading}
             />
           </div>
           <div className="relative">
@@ -56,7 +128,10 @@ const LoginForm = () => {
               name="password"
               placeholder="Password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="mt-1 block w-full mb-[20px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              disabled={isLoading}
             />
             <button
               type="button"
@@ -72,23 +147,28 @@ const LoginForm = () => {
           </div>
           <button
             type="submit"
-            onClick={navigateToProduct} 
             className="w-full bg-[#205FFF] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-blue-700 transition-all duration-300 ease-in-out"
+            disabled={isLoading}
           >
-            Login
+            {isLoading ? "Loading..." : "Login"}
           </button>
-          <p className="mt-4 text-[14px] font-[600] text-[#000000]">
-            Dont have an account?
-          </p>
           <button
             type="button"
-            onClick={navigateToRegistration} 
+            onClick={navigateToRegister}
             className="w-full bg-[#000000] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-gray-700 transition-all duration-300 ease-in-out border-[2px]"
           >
             Registration
           </button>
         </form>
       </div>
+
+      {/* Popup */}
+      <Popup
+        isOpen={showPopup}
+        message={popupMessage}
+        type={popupType}
+        onClose={closePopup}
+      />
     </div>
   );
 };
