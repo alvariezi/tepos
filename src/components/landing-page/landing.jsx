@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { PhoneIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
-import Link from 'next/link';
+import Link from "next/link";
 
 const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +39,9 @@ const LandingPage = () => {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className={`p-[5px] rounded-md transition-all duration-300 ${
-                isScrolled ? "bg-white text-[#205FFF]" : "bg-[#205FFF] text-white"
+                isScrolled
+                  ? "bg-white text-[#205FFF]"
+                  : "bg-[#205FFF] text-white"
               }`}
             >
               <svg
@@ -152,13 +154,9 @@ const LandingPage = () => {
             <ul className="list-disc list-inside text-[14px] md:text-[12px] lg:text-[20px] text-[#1E1E1E] font-medium space-y-3">
               <li>Easy and fast registration process</li>
               <li>Dynamic and easy-to-use display</li>
-              <li>
-                Multiple payment method options to make transactions easy
-              </li>
+              <li>Multiple payment method options to make transactions easy</li>
               <li>Top features to maximize any kind of business</li>
-              <li>
-                Monitor online and offline sales anytime, anywhere
-              </li>
+              <li>Monitor online and offline sales anytime, anywhere</li>
             </ul>
           </div>
           <img
@@ -219,13 +217,17 @@ const LandingPage = () => {
                 <div className="bg-[#205FFF] p-3 rounded-lg">
                   <PhoneIcon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
-                <span className="text-[15px] lg:text-[20px] text-[#1E1E1E] ml-3">1500 360</span>
+                <span className="text-[15px] lg:text-[20px] text-[#1E1E1E] ml-3">
+                  1500 360
+                </span>
               </div>
               <div className="flex items-center md:ml-12">
                 <div className="bg-[#205FFF] p-3 rounded-lg">
                   <EnvelopeIcon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
-                <span className="text-[15px] lg:text-[20px] text-[#1E1E1E] ml-3">tePOS@gmail.com</span>
+                <span className="text-[15px] lg:text-[20px] text-[#1E1E1E] ml-3">
+                  tePOS@gmail.com
+                </span>
               </div>
             </div>
             <p className="text-[15px] w-[300px] lg:w-[400px] lg:text-[18px] md:text-[14px] md:w-[350px] text-[#1E1E1E] font-[400]">
