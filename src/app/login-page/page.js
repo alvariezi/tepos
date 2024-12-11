@@ -1,8 +1,8 @@
 import LoginForm from "@/components/login/login";
 import { cookies } from "next/headers";
 
-const LoginPage = () => {
-  const cookieStore = cookies();
+const LoginPage = async () => {
+  const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value || null;
 
   return (
