@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import Popup from "../popupRegist/Popup";
 
 const RegisterForm = () => {
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +18,10 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); 
+    setShowPassword(!showPassword);
   };
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const navigateToLogin = () => {
     router.push("/login-page");
@@ -28,7 +31,7 @@ const RegisterForm = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setPopupMessage("Passwords do not match.");
+      setPopupMessage("Passwords tidak cocok");
       setPopupType("error");
       setShowPopup(true);
       return;
@@ -43,6 +46,8 @@ const RegisterForm = () => {
     setIsLoading(true);
 
     try {
+      await delay(2000);
+
       const response = await fetch("/api/admin/register", {
         method: "POST",
         headers: {
@@ -52,26 +57,26 @@ const RegisterForm = () => {
       });
 
       const result = await response.json();
-
-      setIsLoading(false);
+      await delay(1500);
 
       if (response.ok) {
         setPopupMessage(result.message);
         setPopupType("success");
         setShowPopup(true);
-        setTimeout(() => {
-          navigateToLogin();
-        }, 2000);
+        await delay(1500);
+        navigateToLogin();
       } else {
         setPopupMessage(result.message);
         setPopupType("error");
         setShowPopup(true);
       }
     } catch (error) {
-      setIsLoading(false);
       setPopupMessage("Register Gagal, coba lagi!!");
       setPopupType("error");
       setShowPopup(true);
+    } finally {
+      await delay(1000);
+      setIsLoading(false);
     }
   };
 
@@ -98,7 +103,10 @@ const RegisterForm = () => {
         <p className="mb-[10px] text-[16px] md:text-[18px] font-bold text-center">
           Create your account
         </p>
-        <form className="space-y-4 mx-auto max-w-[400px] w-full" onSubmit={handleSubmit}>
+        <form
+          className="space-y-4 mx-auto max-w-[400px] w-full"
+          onSubmit={handleSubmit}
+        >
           <div>
             <input
               type="text"
@@ -109,6 +117,7 @@ const RegisterForm = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="mt-1 block w-full p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              disabled={isLoading}
             />
           </div>
           <div>
@@ -121,6 +130,7 @@ const RegisterForm = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              disabled={isLoading}
             />
           </div>
           <div className="relative">
@@ -133,6 +143,7 @@ const RegisterForm = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 block w-full mb-[20px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              disabled={isLoading}
             />
             <button
               type="button"
@@ -156,6 +167,7 @@ const RegisterForm = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="mt-1 block w-full mb-[20px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              disabled={isLoading}
             />
           </div>
           <button
@@ -163,9 +175,7 @@ const RegisterForm = () => {
             disabled={isLoading}
             className="w-full bg-[#205FFF] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-blue-700 transition-all duration-300 ease-in-out relative"
           >
-            <span className={`${isLoading ? "absolute inset-0 flex items-center justify-center" : ""}`}>
-              {isLoading ? "Loading..." : "Registration"}
-            </span>
+            {isLoading ? "Loading..." : "Registration"}
           </button>
           <p className="mt-4 text-[14px] font-[600] text-[#000000]">
             Already have an account?
@@ -181,24 +191,12 @@ const RegisterForm = () => {
       </div>
 
       {/* Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-sm w-full">
-            <h2 className={`text-center text-lg font-bold ${popupType === "success" ? "text-green-500" : "text-red-500"}`}>
-              {popupType === "success" ? "Berhasil" : "Gagal"}
-            </h2>
-            <p className="text-center mt-2">{popupMessage}</p>
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={closePopup}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Popup
+        isOpen={showPopup}
+        type={popupType}
+        message={popupMessage}
+        onClose={closePopup}
+      />
     </div>
   );
 };
