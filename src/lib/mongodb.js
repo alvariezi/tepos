@@ -7,10 +7,7 @@ export const connectMongoDB = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URL);
     console.log("Berhasil terhubung ke MongoDB.");
   } catch (error) {
     console.error("Gagal terhubung ke MongoDB:", error.message);

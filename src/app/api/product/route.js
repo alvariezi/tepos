@@ -1,72 +1,60 @@
+import { addProduct } from "@/services/productServices";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import productCol from "@/models/product";
-import adminCol from "@/models/admin";  // Model Admin untuk mencari admin berdasarkan ID
 
-// Secret key untuk JWT (biasanya di .env)
-const JWT_SECRET = process.env.JWT_SECRET;
+const SECRET_KEY = process.env.JWT_SECRET;
 
 export const POST = async (req) => {
   try {
-    // Mengambil token dari header Authorization
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return NextResponse.json({ message: "Token tidak ditemukan" }, { status: 401 });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json(
+        { error: "Token tidak valid atau tidak ada" },
+        { status: 401 }
+      );
     }
-
-    // Token diawali dengan "Bearer "
     const token = authHeader.split(" ")[1];
-    if (!token) {
-      return NextResponse.json({ message: "Token tidak valid" }, { status: 401 });
+    const decoded = jwt.verify(token, SECRET_KEY);
+    if (!decoded || !decoded.idAdmin) {
+      return NextResponse.json(
+        { error: "Token tidak valid atau tidak sesuai" },
+        { status: 401 }
+      );
     }
-
-    // Verifikasi token dan ambil informasi admin
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const adminId = decoded._id; // Asumsi _id disertakan dalam token
-
-    // Cari admin berdasarkan ID (untuk memastikan admin valid)
-    const admin = await adminCol.findById(adminId);
-    if (!admin) {
-      return NextResponse.json({ message: "Admin tidak ditemukan" }, { status: 404 });
-    }
-
-    console.log("Admin ditemukan:", admin);  // Log untuk memeriksa admin
-
-    // Pastikan admin.products sudah ada
-    if (!admin.products) {
-      admin.products = [];  // Inisialisasi jika undefined
-    }
-
-    // Ambil data produk dari body request
     const { name, category, price, description, image } = await req.json();
-
-    // Membuat produk baru dan menambahkan adminId
-    const newProduct = new productCol({
+    if (!name || !category || !price || !description || !image) {
+      return NextResponse.json(
+        { error: "Semua field harus diisi" },
+        { status: 400 }
+      );
+    }
+    const data = {
       name,
       category,
       price,
       description,
       image,
-      adminId: admin._id,  // Menambahkan ID admin pada produk
-    });
+    };
 
-    // Simpan produk ke database
-    await newProduct.save();
+    const result = await addProduct(decoded.idAdmin, data);
 
-    // Menambahkan produk ke array produk admin
-    admin.products.push(newProduct._id);
-
-    // Simpan perubahan admin
-    await admin.save();
+    if (result.modifiedCount === 0) {
+      return NextResponse.json(
+        { error: "Gagal menambahkan produk" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(
-      { message: "Produk berhasil ditambahkan", product: newProduct },
+      {
+        message: "Berhasil menambahkan produk",
+      },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error saat menambahkan produk:", error);
+    console.error("Error adding product:", error.message);
     return NextResponse.json(
-      { message: "Terjadi kesalahan saat menambahkan produk" },
+      { error: "Terjadi kesalahan saat menambahkan produk" },
       { status: 500 }
     );
   }
