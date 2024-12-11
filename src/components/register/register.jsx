@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import Popup from "../popupRegist/Popup";
+import Popup from "../popupLoginRegist/Popup";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
