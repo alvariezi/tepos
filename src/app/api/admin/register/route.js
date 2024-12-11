@@ -6,13 +6,7 @@ export const POST = async (req) => {
   try {
     const { username, email, password } = await req.json();
 
-    if (!username || !email || !password) {
-      return NextResponse.json(
-        { message: "Username, email, dan password harus diisi" },
-        { status: 400 }
-      );
-    }
-
+    // Cek apakah username atau email sudah digunakan
     const isAdmin = await existingAdmin(username, email);
     if (isAdmin.length > 0) {
       return NextResponse.json(
@@ -21,14 +15,11 @@ export const POST = async (req) => {
       );
     }
 
+    // Hash password
     const hashedPassword = await hashPassword(password);
 
-    const data = {
-      username,
-      email,
-      password: hashedPassword,
-    };
-
+    // Registrasi admin baru
+    const data = { username, email, password: hashedPassword };
     await adminRegister(data);
 
     return NextResponse.json(
