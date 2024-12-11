@@ -1,9 +1,13 @@
 import LoginForm from "@/components/login/login";
+import { cookies } from "next/headers";
 
 const LoginPage = () => {
+  const cookieStore = cookies();
+  const token = cookieStore.get("token")?.value || null;
+
   return (
     <main>
-      <LoginForm />
+      <LoginForm initialToken={token} />
     </main>
   );
 };
