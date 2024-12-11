@@ -12,19 +12,17 @@ export const adminRegister = async (data) => {
 
     await insert.save();
   } catch (error) {
-    console.log(error);
-    throw Error(error);
+    console.error("Error during admin registration:", error);
+    throw new Error("Gagal registrasi admin.");
   }
 };
 
-export const existingAdmin = async (username, email) => {
+export const existingAdmin = async (username) => {
   try {
     await connectMongoDB();
     return adminCol
-      .find({
-        $or: [{ username: username }, { email: email }],
-      })
-      .select("_id");
+      .find({ username })
+      .select("username password");
   } catch (error) {
     console.log(error);
     throw Error(error);
