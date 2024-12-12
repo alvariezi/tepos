@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import Popup from "../popupLoginRegist/Popup";
 
-const RegisterForm = () => {
+const RegisterForm = ({ initialToken }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +15,14 @@ const RegisterForm = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState(initialToken || ""); 
   const router = useRouter();
+
+  useEffect(() => {
+    if (token) {
+      console.log("Token from SSR:", token);
+    }
+  }, [token]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

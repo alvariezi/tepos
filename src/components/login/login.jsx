@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import Popup from "../popupLoginRegist/Popup"; 
+import Popup from "../popupLoginRegist/Popup";
 
-const LoginForm = () => {
+const LoginForm = ({ initialToken }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,8 +13,14 @@ const LoginForm = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(initialToken || ""); 
   const router = useRouter();
+
+  useEffect(() => {
+    if (token) {
+      console.log("Token from SSR:", token);
+    }
+  }, [token]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -58,7 +64,7 @@ const LoginForm = () => {
         setPopupMessage(result.message || "Login berhasil!");
         setPopupType("success");
         setShowPopup(true);
-        setToken(result.token || "Token tidak tersedia"); 
+        setToken(result.token || "Token tidak tersedia");
         await delay(1500);
         navigateToProduct();
       } else {
