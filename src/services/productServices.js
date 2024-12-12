@@ -23,3 +23,16 @@ export const addProduct = async (idAdmin, data) => {
     throw new Error({ message: error.message });
   }
 };
+
+export const getAllProduct = async (id) => {
+  try {
+    await connectMongoDB();
+    return adminCol.findOne(
+      { _id: new mongoose.Types.ObjectId(id) },
+      { product: 1, _id: 0 }
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
