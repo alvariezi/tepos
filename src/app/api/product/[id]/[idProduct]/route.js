@@ -1,6 +1,7 @@
 import { deleteProduct, editProduct } from "@/services/productServices";
 
-export const DELETE = async (req, { params }) => {
+export const DELETE = async (req, context) => {
+  const params = await context.params;
   const { id: idAdmin, idProduct } = params;
 
   try {
@@ -22,9 +23,10 @@ export const DELETE = async (req, { params }) => {
   }
 };
 
-export const PUT = async (req, { params }) => {
+export const PUT = async (req, context) => {
+  const params = await context.params;
   const { id: idAdmin, idProduct } = params;
-  
+
   try {
     if (!idAdmin || !idProduct) {
       return new Response(
