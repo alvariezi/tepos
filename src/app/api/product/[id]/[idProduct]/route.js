@@ -33,9 +33,8 @@ export const PUT = async (req, { params }) => {
       );
     }
 
-    const updatedData = await req.json(); // Ambil data yang akan diupdate dari body request
+    const updatedData = await req.json();
 
-    // Validasi input
     if (!updatedData || Object.keys(updatedData).length === 0) {
       return new Response(
         JSON.stringify({ error: "Data untuk update tidak valid" }),
