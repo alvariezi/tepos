@@ -1,26 +1,29 @@
 import mongoose from "mongoose";
 import adminCol from "@/models/admin";
+import productCol from "@/models/product";
 import { connectMongoDB } from "@/lib/mongodb";
 
-export const addProduct = async (idAdmin, data) => {
+export const addProduct = async (idAdmin, productData) => {
   try {
-    const objectId = new mongoose.Types.ObjectId(idAdmin);
     await connectMongoDB();
+
+    console.log("Data diterima di Service:", productData); // Tambahkan log ini
+
+    const newProduct = await productCol.create({ ...productData, adminId: idAdmin });
+
     const result = await adminCol.updateOne(
-      {
-        _id: objectId,
-      },
-      {
-        $push: {
-          product: data,
-        },
-      }
+      { _id: idAdmin },
+      { $push: { products: newProduct._id } }
     );
 
-    return result;
+    if (result.modifiedCount === 0) {
+      throw new Error("Gagal menambahkan ID produk ke admin");
+    }
+
+    return newProduct;
   } catch (error) {
-    console.log(error);
-    throw new Error({ message: error.message });
+    console.error("Error adding product:", error);
+    throw new Error(error.message);
   }
 };
 

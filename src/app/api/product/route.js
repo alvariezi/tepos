@@ -6,56 +6,65 @@ const SECRET_KEY = process.env.JWT_SECRET;
 
 export const POST = async (req) => {
   try {
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return NextResponse.json(
-        { error: "Token tidak valid atau tidak ada" },
-        { status: 401 }
-      );
-    }
-    const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, SECRET_KEY);
-    if (!decoded || !decoded.idAdmin) {
-      return NextResponse.json(
-        { error: "Token tidak valid atau tidak sesuai" },
-        { status: 401 }
-      );
-    }
-    const { name, category, price, description, image } = await req.json();
-    if (!name || !category || !price || !description || !image) {
-      return NextResponse.json(
-        { error: "Semua field harus diisi" },
+    const data = await req.json();
+    console.log("Request Body:", data); // Tambahkan log ini
+
+    const { name, category, price, description, image } = data;
+
+    if (!name || !category || !price || !image) {
+      return new Response(
+        JSON.stringify({
+          error: "Field name, category, price, dan image wajib diisi",
+        }),
         { status: 400 }
       );
     }
-    const data = {
+
+    // Lanjutkan ke service
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Token tidak valid" }), {
+        status: 401,
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, SECRET_KEY);
+
+    if (!decoded || !decoded.idAdmin) {
+      return new Response(
+        JSON.stringify({ error: "Autentikasi tidak sesuai" }),
+        { status: 403 }
+      );
+    }
+
+    const idAdmin = decoded.idAdmin;
+
+    const newProduct = await addProduct(idAdmin, {
       name,
       category,
       price,
       description,
       image,
-    };
-
-    const result = await addProduct(decoded.idAdmin, data);
-
-    if (result.modifiedCount === 0) {
-      return NextResponse.json(
-        { error: "Gagal menambahkan produk" },
-        { status: 500 }
-      );
-    }
+    });
 
     return NextResponse.json(
       {
-        message: "Berhasil menambahkan produk",
+        message: "Berhasil Menambahkan Product",
       },
-      { status: 201 }
-    );
+      {
+        status: 201,
+      }
+    )
   } catch (error) {
     console.error("Error adding product:", error.message);
     return NextResponse.json(
-      { error: "Terjadi kesalahan saat menambahkan produk" },
-      { status: 500 }
-    );
+      {
+        message: "Gagal Menambahkan Product",
+      },
+      {
+        status: 500,
+      }
+    )
   }
 };
