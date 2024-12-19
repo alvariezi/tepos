@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { ArrowPathIcon, Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  Bars3Icon,
+  ShoppingCartIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const Cashier = () => {
@@ -37,7 +42,7 @@ const Cashier = () => {
               <Bars3Icon className="h-[24px] w-[24px]" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">tePOS</p>
+          <p className="font-[600] text-[18px]">Posify</p>
         </div>
       )}
 
@@ -61,7 +66,6 @@ const Cashier = () => {
             <h2 className="text-[16px] font-[500] text-[#1E1E1E]">List Menu</h2>
           </div>
           <div className="flex items-center space-x-4">
-
             {/* Filter Category */}
             <div className="bg-white p-[8px] rounded-md shadow-sm">
               <select className="border border-[#D0D0D0] text-[12px] md:text-[16px] rounded-md px-[12px] lg:px-[16px] py-[8px] text-[#1E1E1E] font-[500] focus:outline-none focus:ring-2 focus:ring-[#205FFF] lg:w-[400px]">
@@ -70,7 +74,7 @@ const Cashier = () => {
                 <option className="py-2">Food</option>
               </select>
             </div>
-            
+
             {/* Refresh Icon */}
             <button className="bg-gray-100 p-2 rounded-md hover:bg-gray-200">
               <ArrowPathIcon className="h-5 w-5 text-[#1E1E1E]" />
@@ -98,7 +102,7 @@ const Cashier = () => {
                 alt="Americano"
                 className="w-16 h-16 object-cover rounded-md mr-4"
               />
-              <div className="flex flex-col"> 
+              <div className="flex flex-col">
                 <p className="text-lg font-semibold mb-1">Americano</p>
                 <p className="text-sm font-medium mb-2">Rp 50,000</p>
               </div>

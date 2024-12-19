@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, PencilSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  Bars3Icon,
+  PencilSquareIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const Product = () => {
@@ -11,7 +15,7 @@ const Product = () => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -37,7 +41,7 @@ const Product = () => {
               <Bars3Icon className="h-[24px] w-[24px]" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">tePOS</p>
+          <p className="font-[600] text-[18px]">Posify</p>
         </div>
       )}
 
@@ -48,16 +52,10 @@ const Product = () => {
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-[20px] font-semibold text-gray-800">
-            Product
-          </h1>
+          <h1 className="text-[20px] font-semibold text-gray-800">Product</h1>
           <div className="text-right">
-            <p className="text-[#1E1E1E] text-[14px] font-[600]">
-              ShopName
-            </p>
-            <p className="text-[#6E6E6E] text-[14px] font-[500]">
-              Username
-            </p>
+            <p className="text-[#1E1E1E] text-[14px] font-[600]">ShopName</p>
+            <p className="text-[#6E6E6E] text-[14px] font-[500]">Username</p>
           </div>
         </div>
 
@@ -86,7 +84,9 @@ const Product = () => {
             <thead>
               <tr className="bg-[#EEF0F1] border-b">
                 <th className="p-[16px] text-left text-[14px]">Product</th>
-                <th className="p-[16px] text-left text-[14px] hidden md:table-cell">Category</th>
+                <th className="p-[16px] text-left text-[14px] hidden md:table-cell">
+                  Category
+                </th>
                 <th className="p-[16px] text-left text-[14px]">Price</th>
                 <th className="p-[16px] text-left text-[14px]">Actions</th>
               </tr>
@@ -99,16 +99,19 @@ const Product = () => {
                     alt="product"
                     className="w-10 h-10 rounded-md"
                   />
-                  <span className="text-gray-800 word-break">
-                    Seblak 
-                  </span>
+                  <span className="text-gray-800 word-break">Seblak</span>
                 </td>
-                <td className="p-[16px] text-[14px] border-b space-y-2 hidden md:table-cell">Snack</td>
-                <td className="p-[16px] text-[14px] text-[#205FFF] border-b space-y-2">Rp. 10.000</td>
+                <td className="p-[16px] text-[14px] border-b space-y-2 hidden md:table-cell">
+                  Snack
+                </td>
+                <td className="p-[16px] text-[14px] text-[#205FFF] border-b space-y-2">
+                  Rp. 10.000
+                </td>
                 <td className="p-[16px] text-[14px] space-y-2">
-                  <Link 
-                  href="/edit-product-page"
-                  className="text-[#747474] hover:text-gray-700">
+                  <Link
+                    href="/edit-product-page"
+                    className="text-[#747474] hover:text-gray-700"
+                  >
                     <PencilSquareIcon className="h-5 w-5" />
                   </Link>
                 </td>

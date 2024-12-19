@@ -13,7 +13,7 @@ const LoginForm = ({ initialToken }) => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState(initialToken || ""); 
+  const [token, setToken] = useState(initialToken || "");
   const router = useRouter();
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const LoginForm = ({ initialToken }) => {
       {/* Form Section */}
       <div className="flex-1 flex flex-col justify-center p-4">
         <h1 className="text-[40px] md:text-[60px] leading-[72.3px] text-[#205FFF] font-[600] font-russo text-center mb-[20px]">
-          tePOS
+          Posify
         </h1>
         {token && (
           <p className="text-center text-[8px] text-gray-500 mt-2">
@@ -108,7 +108,7 @@ const LoginForm = ({ initialToken }) => {
           </p>
         )}
         <p className="mb-[10px] text-[16px] md:text-[18px] font-bold text-center">
-          Hi, Welcome Back to tePOS!
+          Hi, Welcome Back to Posify!
         </p>
         <form
           className="space-y-4 mx-auto max-w-[400px] w-full"

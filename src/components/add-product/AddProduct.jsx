@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const AddProduct = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -35,7 +35,7 @@ const AddProduct = () => {
               <Bars3Icon className="h-[24px] w-[24px]" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">tePOS</p>
+          <p className="font-[600] text-[18px]">Posify</p>
         </div>
       )}
 
@@ -46,24 +46,18 @@ const AddProduct = () => {
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-[20px] font-semibold text-gray-800">
-            Product
-          </h1>
+          <h1 className="text-[20px] font-semibold text-gray-800">Product</h1>
           <div className="text-right">
-            <p className="text-[#1E1E1E] text-[14px] font-[600]">
-              ShopName
-            </p>
-            <p className="text-[#6E6E6E] text-[14px] font-[500]">
-              Username
-            </p>
+            <p className="text-[#1E1E1E] text-[14px] font-[600]">ShopName</p>
+            <p className="text-[#6E6E6E] text-[14px] font-[500]">Username</p>
           </div>
         </div>
 
         {/* Header Section */}
         <div className="bg-white p-[15px] rounded-md shadow-sm mb-[10px] flex items-center space-x-4">
-          <button 
+          <button
             className="flex items-center text-[#090A0A] hover:text-[#205FFF] focus:outline-none"
-            onClick={() => window.history.back()} 
+            onClick={() => window.history.back()}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
