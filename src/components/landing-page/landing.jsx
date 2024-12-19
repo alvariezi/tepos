@@ -31,7 +31,7 @@ const LandingPage = () => {
               isScrolled ? "text-white" : "text-[#205FFF]"
             }`}
           >
-            tePOS
+            Posify
           </h1>
 
           {/* Hamburger Menu */}
@@ -171,10 +171,10 @@ const LandingPage = () => {
       <section className="bg-white py-12">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <h2 className="text-[24px] lg:text-[36px] md:text-[22px] text-[#1E1E1E] font-extrabold mb-4">
-            Why Choose <span className="text-[#205FFF]">tePOS?</span>
+            Why Choose <span className="text-[#205FFF]">Posify</span>
           </h2>
           <p className="text-[14px] lg:text-[18px] md:text-[14px] text-[#5F5F5F] font-[500] mb-10">
-            Find out why tePOS Cashier is suitable for your business, here!
+            Find out why Posify Cashier is suitable for your business, here!
           </p>
           <div className="flex justify-center">
             <img
@@ -226,7 +226,7 @@ const LandingPage = () => {
                   <EnvelopeIcon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
                 <span className="text-[15px] lg:text-[20px] text-[#1E1E1E] ml-3">
-                  tePOS@gmail.com
+                  Posify@gmail.com
                 </span>
               </div>
             </div>

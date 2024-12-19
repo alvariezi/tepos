@@ -1,8 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  EyeIcon,
+  EyeSlashIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 const Settings = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -41,12 +46,14 @@ const Settings = () => {
               <Bars3Icon className="h-[24px] w-[24px]" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">tePOS</p>
+          <p className="font-[600] text-[18px]">Posify</p>
         </div>
       )}
 
       <div
-        className={`flex-1 ${isMobile ? "ml-0 mt-[40px]" : "md:ml-[250px]"} p-6`}
+        className={`flex-1 ${
+          isMobile ? "ml-0 mt-[40px]" : "md:ml-[250px]"
+        } p-6`}
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[40px]">
@@ -59,7 +66,7 @@ const Settings = () => {
 
         <form className="space-y-4">
           {/* Username & Store Name */}
-          <div className={`flex ${isMobile ? 'flex-col' : 'space-x-4'}`}>
+          <div className={`flex ${isMobile ? "flex-col" : "space-x-4"}`}>
             <input
               type="text"
               id="username"
@@ -77,7 +84,11 @@ const Settings = () => {
           </div>
 
           {/* Password & Save Button */}
-          <div className={`flex ${isMobile ? 'flex-col' : 'space-x-4'} items-center`}>
+          <div
+            className={`flex ${
+              isMobile ? "flex-col" : "space-x-4"
+            } items-center`}
+          >
             <div className="relative w-full md:w-1/2">
               <input
                 type={showPassword ? "text" : "password"}

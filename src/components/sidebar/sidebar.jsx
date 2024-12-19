@@ -30,7 +30,7 @@ const Sidebar = ({ isOpen, isMobile, setIsOpen }) => {
       >
         {/* Header */}
         <h2 className="text-[30px] md:text-[35px] text-center font-russo text-[#205FFF] font-[600] md:mt-[20px]">
-          tePOS
+          Posify
         </h2>
         <p className="text-[14px] md:text-[18px] text-center font-[500] text-[#747474] mb-[50px] hidden md:block">
           Your POS assistant
