@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import { Bars3Icon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline'; 
+import { Bars3Icon, XMarkIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 const History = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -10,7 +10,7 @@ const History = () => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -36,7 +36,7 @@ const History = () => {
               <Bars3Icon className="h-[24px] w-[24px]" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">tePOS</p>
+          <p className="font-[600] text-[18px]"></p>
         </div>
       )}
 
@@ -47,35 +47,29 @@ const History = () => {
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-[20px] font-semibold text-gray-800">
-            History
-          </h1>
+          <h1 className="text-[20px] font-semibold text-gray-800">History</h1>
           <div className="text-right">
-            <p className="text-[#1E1E1E] text-[14px] font-[600]">
-              ShopName
-            </p>
-            <p className="text-[#6E6E6E] text-[14px] font-[500]">
-              Username
-            </p>
+            <p className="text-[#1E1E1E] text-[14px] font-[600]">ShopName</p>
+            <p className="text-[#6E6E6E] text-[14px] font-[500]">Username</p>
           </div>
         </div>
 
         {/* Buttons Section */}
-        <div className="flex justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm space-x-3 mb-[20px]">
-          <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm gap-3 mb-[20px]">
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
             <input
               type="text"
               id="searchDate"
               placeholder="Search Date"
-              className="w-3/4 p-[8px] text-[12px] px-[16px] md:text-[16px] placeholder:text-[#1E1E1E] placeholder:font-[500] md:ml-0 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              className="p-[8px] w-[100px] lg:w-[130px] md:w-[120px] text-[12px] md:text-[16px] placeholder:text-[#1E1E1E] placeholder:font-[500] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             />
-            <div className="bg-white p-[8px] rounded-md shadow-sm">
-              <select className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px]">
+            <select
+                className="w-[270px] lg:w-[750px] md:w-[280px] border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF]"
+              >
                 <option>All Status</option>
                 <option>Status 1</option>
                 <option>Status 2</option>
               </select>
-            </div>
           </div>
         </div>
 
@@ -85,15 +79,25 @@ const History = () => {
             {/* Title Table */}
             <thead>
               <tr className="bg-[#EEF0F1] border-b">
-                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Product</th>
-                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Date</th>
-                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Time</th>
-                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Price</th>
-                <th className="p-4 text-left text-[14px] font-medium text-gray-800">Actions</th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">
+                  Product
+                </th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">
+                  Date
+                </th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">
+                  Time
+                </th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">
+                  Price
+                </th>
+                <th className="p-4 text-left text-[14px] font-medium text-gray-800">
+                  Actions
+                </th>
               </tr>
             </thead>
 
-            {/* Dekstop Table */}
+            {/* Desktop Table */}
             <tbody>
               <tr className="border-b hover:bg-gray-100">
                 <td className="p-4 text-sm text-gray-800 flex items-center space-x-3">
@@ -108,9 +112,7 @@ const History = () => {
                 <td className="p-4 text-sm text-gray-600">09:37</td>
                 <td className="p-4 text-sm text-[#205FFF]">Rp. 10.000</td>
                 <td className="p-4 text-sm">
-                  <button
-                    className="text-[#FF0000] hover:text-gray-700"
-                  >
+                  <button className="text-[#FF0000] hover:text-gray-700">
                     <TrashIcon className="h-5 w-5" />
                   </button>
                 </td>
@@ -129,14 +131,16 @@ const History = () => {
                     className="w-16 h-16 object-cover rounded-md"
                   />
                   <div>
-                    <p className="text-base font-semibold text-gray-800">Seblak</p>
+                    <p className="text-base font-semibold text-gray-800">
+                      Seblak
+                    </p>
                     <p className="text-sm text-gray-600">2024-11-05 | 09:37</p>
-                    <p className="text-sm font-medium text-[#205FFF]">Rp. 10.000</p>
+                    <p className="text-sm font-medium text-[#205FFF]">
+                      Rp. 10.000
+                    </p>
                   </div>
                 </div>
-                <button
-                  className="bg-[#FF0000] text-white p-2 rounded-md hover:bg-red-600"
-                >
+                <button className="bg-[#FF0000] text-white p-2 rounded-md hover:bg-red-600">
                   <TrashIcon className="h-5 w-5" />
                 </button>
               </div>

@@ -19,11 +19,11 @@ const Cart = () => {
   }, []);
 
   const handleIncrement = () => {
-    setQuantity(prev => prev + 1);
+    setQuantity((prev) => prev + 1);
   };
 
   const handleDecrement = () => {
-    setQuantity(prev => (prev > 1 ? prev - 1 : prev));
+    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
   const handleChange = (e) => {
@@ -53,7 +53,7 @@ const Cart = () => {
               <Bars3Icon className="h-[24px] w-[24px]" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">tePOS</p>
+          <p className="font-[600] text-[18px]">Posify</p>
         </div>
       )}
 
@@ -107,7 +107,7 @@ const Cart = () => {
                 alt="Americano"
                 className="w-16 h-16 object-cover rounded-md mr-4"
               />
-              <div className="flex flex-col"> 
+              <div className="flex flex-col">
                 <p className="text-lg font-semibold mb-1">Americano</p>
                 <p className="text-sm font-medium">Rp 50,000</p>
               </div>
@@ -132,26 +132,29 @@ const Cart = () => {
                 value={quantity}
                 onChange={handleChange}
                 className="text-center w-[50px] md:w-[60px] border rounded-md text-lg font-medium focus:outline-none focus:ring-2 focus:ring-[#205FFF]"
-                />
-                <button
-                  className="bg-[#205FFF] text-white md:text-[25px] font-[600] px-2 py-1 md:px-3 md:py-2 rounded-md hover:bg-gray-300 hover:text-black text-sm"
-                  onClick={handleIncrement}
-                >
-                  +
-                </button>
+              />
+              <button
+                className="bg-[#205FFF] text-white md:text-[25px] font-[600] px-2 py-1 md:px-3 md:py-2 rounded-md hover:bg-gray-300 hover:text-black text-sm"
+                onClick={handleIncrement}
+              >
+                +
+              </button>
             </div>
           </div>
         </div>
-        
+
         {/* Payment */}
-        <div
-          className="fixed md:ml-[250px] bottom-0 left-0 w-full bg-white py-[16px] px-[20px] rounded-t-md shadow-md flex justify-between items-center z-50"
-        >
+        <div className="fixed md:ml-[250px] bottom-0 left-0 w-full bg-white py-[16px] px-[20px] rounded-t-md shadow-md flex justify-between items-center z-50">
           <div className="flex items-center space-x-1 md:space-x-2">
-            <p className="text-[14px] md:text-[20px] font-[600]">Total Payment :</p>
-            <p className="text-[14px] text-[#205FFF] md:text-[20px] font-[600]"> Rp. 10.000</p>
+            <p className="text-[14px] md:text-[20px] font-[600]">
+              Total Payment :
+            </p>
+            <p className="text-[14px] text-[#205FFF] md:text-[20px] font-[600]">
+              {" "}
+              Rp. 10.000
+            </p>
           </div>
-          <Link href="/payment-page">
+          <Link href="/payment">
             <button className="bg-[#205FFF] text-white lg:mr-[250px] md:mr-[250px] px-4 lg:px-[200px] md:px-[50px] py-2 rounded-md hover:bg-blue-500">
               Payment
             </button>
