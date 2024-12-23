@@ -27,13 +27,13 @@ const LoginForm = ({ initialToken }) => {
   };
 
   const navigateToRegister = () => {
-    router.push("/register-page");
+    router.push("/register");
   };
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const navigateToProduct = () => {
-    router.push("/product-page");
+    router.push("/product");
   };
 
   const handleSubmit = async (e) => {
@@ -107,8 +107,11 @@ const LoginForm = ({ initialToken }) => {
             Token: <span className="font-mono text-blue-600">{token}</span>
           </p>
         )}
-        <p className="mb-[10px] text-[16px] md:text-[18px] font-bold text-center">
+        <p className="mb-[5px] text-[16px] md:text-[18px] font-bold text-center">
           Hi, Welcome Back to Posify!
+        </p>
+        <p className="mb-[50px] text-[12px] text-[#747474] md:text-[14px] font-bold text-center">
+          Please login with your account
         </p>
         <form
           className="space-y-4 mx-auto max-w-[400px] w-full"
@@ -136,7 +139,7 @@ const LoginForm = ({ initialToken }) => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full mb-[20px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
+              className="mt-1 block w-full mb-[20px] lg:mb-[70px] p-[12px] border font-[400] text-[#000] border-[#ACACAC] rounded-[10px]"
               disabled={isLoading}
             />
             <button
@@ -158,6 +161,9 @@ const LoginForm = ({ initialToken }) => {
           >
             {isLoading ? "Loading..." : "Login"}
           </button>
+          <p className="text-[12px] md:text-[14px] font-[600]">
+            Don’t have an account?
+          </p>
           <button
             type="button"
             onClick={navigateToRegister}

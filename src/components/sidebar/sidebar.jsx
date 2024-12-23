@@ -38,14 +38,14 @@ const Sidebar = ({ isOpen, isMobile, setIsOpen }) => {
 
         {/* Links */}
         <div className="mt-4">
-          <SidebarLink href="/history-page" Icon={ClockIcon} label="History" />
-          <SidebarLink href="/product-page" Icon={CubeIcon} label="Product" />
+          <SidebarLink href="/history" Icon={ClockIcon} label="History" />
+          <SidebarLink href="/product" Icon={CubeIcon} label="Product" />
           <SidebarLink
-            href="/cashier-page"
+            href="/cashier"
             Icon={ShoppingCartIcon}
             label="Cashier"
           />
-          <SidebarLink href="/settings-page" Icon={CogIcon} label="Settings" />
+          <SidebarLink href="/settings" Icon={CogIcon} label="Settings" />
         </div>
 
         {/* Logout Button */}
