@@ -15,7 +15,7 @@ const adminSchema = new Schema(
       type: String,
       required: true,
     },
-    product: [productSchema],
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   },
   {
     timestamps: true,

@@ -55,21 +55,21 @@ const History = () => {
         </div>
 
         {/* Buttons Section */}
-        <div className="flex justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm space-x-3 mb-[20px]">
-          <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm gap-3 mb-[20px]">
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
             <input
               type="text"
               id="searchDate"
               placeholder="Search Date"
-              className="w-3/4 p-[8px] text-[12px] px-[16px] md:text-[16px] placeholder:text-[#1E1E1E] placeholder:font-[500] md:ml-0 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              className="p-[8px] w-[100px] lg:w-[130px] md:w-[120px] text-[12px] md:text-[16px] placeholder:text-[#1E1E1E] placeholder:font-[500] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             />
-            <div className="bg-white p-[8px] rounded-md shadow-sm">
-              <select className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px]">
+            <select
+                className="w-[270px] lg:w-[750px] md:w-[280px] border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF]"
+              >
                 <option>All Status</option>
                 <option>Status 1</option>
                 <option>Status 2</option>
               </select>
-            </div>
           </div>
         </div>
 
@@ -97,7 +97,7 @@ const History = () => {
               </tr>
             </thead>
 
-            {/* Dekstop Table */}
+            {/* Desktop Table */}
             <tbody>
               <tr className="border-b hover:bg-gray-100">
                 <td className="p-4 text-sm text-gray-800 flex items-center space-x-3">

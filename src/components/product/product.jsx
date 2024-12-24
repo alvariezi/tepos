@@ -61,16 +61,20 @@ const Product = () => {
 
         {/* Buttons Section */}
         <div className="flex justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm space-x-3 mb-[20px]">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
             <div className="bg-white p-[8px] rounded-md shadow-sm">
-              <select className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px]">
-                <option>All Category</option>
-                <option>Snack</option>
-                <option>Main Course</option>
-              </select>
+            <select
+              className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px] truncate"
+              style={{ maxWidth: "770px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}
+            >
+              <option>All Category</option>
+              <option>Snack</option>
+              <option>Main Course</option>
+              <option>Very Long Category Name That Should Be Truncated</option>
+            </select>
             </div>
             <Link
-              href="/add-product-page"
+              href="/addProduct"
               className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[12px] md:text-[14px] font-[500] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Add Product
@@ -109,7 +113,7 @@ const Product = () => {
                 </td>
                 <td className="p-[16px] text-[14px] space-y-2">
                   <Link
-                    href="/edit-product-page"
+                    href="/editProduct"
                     className="text-[#747474] hover:text-gray-700"
                   >
                     <PencilSquareIcon className="h-5 w-5" />
