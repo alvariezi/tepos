@@ -31,7 +31,7 @@ const RegisterForm = ({ initialToken }) => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const navigateToLogin = () => {
-    router.push("/login-page");
+    router.push("/login");
   };
 
   const handleSubmit = async (e) => {

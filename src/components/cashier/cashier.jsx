@@ -81,7 +81,7 @@ const Cashier = () => {
             </button>
 
             {/* Cart */}
-            <Link href="/cart-page">
+            <Link href="/cart">
               <button className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[12px] md:text-[14px] font-[500] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center space-x-2">
                 <ShoppingCartIcon className="h-5 w-5" />
                 <span>Cart</span>
