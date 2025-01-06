@@ -154,7 +154,7 @@ const Cart = () => {
               Rp. 10.000
             </p>
           </div>
-          <Link href="/payment-page">
+          <Link href="/payment">
             <button className="bg-[#205FFF] text-white lg:mr-[250px] md:mr-[250px] px-4 lg:px-[200px] md:px-[50px] py-2 rounded-md hover:bg-blue-500">
               Payment
             </button>
