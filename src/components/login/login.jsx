@@ -107,11 +107,6 @@ const LoginForm = ({ initialToken }) => {
             Token: <span className="font-mono text-blue-600">{token}</span>
           </p>
         )}
-        <p className="mb-[5px] text-[16px] md:text-[18px] font-bold text-center">
-          Hi, Welcome Back to Posify!
-        </p>
-        <p className="mb-[50px] text-[12px] text-[#747474] md:text-[14px] font-bold text-center">
-          Please login with your account
         </p>
         <form
           className="space-y-4 mx-auto max-w-[400px] w-full"

@@ -26,12 +26,6 @@ const LandingPage = () => {
       >
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center py-[15px] lg:py-[20px]">
           {/* Logo */}
-          <img
-              src="logo.svg" 
-              alt="Posify Logo"
-              className={`h-8 lg:h-12 ${isScrolled ? "text-white" : "text-[#205FFF]"}`} 
-            />
-
           {/* Hamburger Menu */}
           <div className="block md:hidden">
             <button
@@ -219,9 +213,6 @@ const LandingPage = () => {
             1500 360
           </span>
         </div>
-        <div className="flex items-center md:ml-12">
-          <div className="bg-[#205FFF] p-3 rounded-lg">
-            <EnvelopeIcon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
           </div>
           <span className="text-[15px] lg:text-[20px] text-[#1E1E1E] ml-3">
             Posify@gmail.com

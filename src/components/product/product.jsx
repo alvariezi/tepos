@@ -113,7 +113,6 @@ const Product = () => {
                 </td>
                 <td className="p-[16px] text-[14px] space-y-2">
                   <Link
-                    href="/editProduct"
                     className="text-[#747474] hover:text-gray-700"
                   >
                     <PencilSquareIcon className="h-5 w-5" />
