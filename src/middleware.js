@@ -11,5 +11,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/api/(.*)"],
+  matcher: ["/api/product", "/api/product/:id", "/api/product/:id/:idProduct"],
 };
