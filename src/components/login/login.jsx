@@ -17,8 +17,18 @@ const LoginForm = ({ initialToken }) => {
   const router = useRouter();
 
   useEffect(() => {
+    const tokenFromCookies = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+    if (tokenFromCookies) {
+      setToken(tokenFromCookies.split("=")[1]);
+    }
+  }, []);
+
+  useEffect(() => {
     if (token) {
-      console.log("Token from SSR:", token);
+      document.cookie = `token=${token}; path=/`;
+      router.push("/product");
     }
   }, [token]);
 
@@ -31,10 +41,6 @@ const LoginForm = ({ initialToken }) => {
   };
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  const navigateToProduct = () => {
-    router.push("/product");
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,8 +71,6 @@ const LoginForm = ({ initialToken }) => {
         setPopupType("success");
         setShowPopup(true);
         setToken(result.token || "Token tidak tersedia");
-        await delay(1500);
-        navigateToProduct();
       } else {
         setPopupMessage(result.error || "Login gagal, coba lagi!");
         setPopupType("error");
