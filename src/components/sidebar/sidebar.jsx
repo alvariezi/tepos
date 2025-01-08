@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowLeftOnRectangleIcon,
@@ -8,6 +9,21 @@ import {
 } from "@heroicons/react/24/outline";
 
 const Sidebar = ({ isOpen, isMobile, setIsOpen }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const logout = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "/login";
+  };
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <>
       {/* Background Overlay */}
@@ -50,12 +66,13 @@ const Sidebar = ({ isOpen, isMobile, setIsOpen }) => {
 
         {/* Logout Button */}
         <div className="absolute bottom-[80px] md:bottom-[40px] left-0 w-full">
-          <Link href="/">
-            <button className="flex items-center justify-center md:ml-[15px] md:py-[12px] md:px-[40px] py-[10px] px-[15px] ml-[15px] text-[14px] text-white bg-[#000000] hover:bg-gray-800 rounded-lg transition-all duration-300">
-              <ArrowLeftOnRectangleIcon className="h-5 w-5 mr-[5px]" />
-              Log Out
-            </button>
-          </Link>
+          <button
+            onClick={logout}
+            className="flex items-center justify-center md:ml-[15px] md:py-[12px] md:px-[40px] py-[10px] px-[15px] ml-[15px] text-[14px] text-white bg-[#000000] hover:bg-gray-800 rounded-lg transition-all duration-300"
+          >
+            <ArrowLeftOnRectangleIcon className="h-5 w-5 mr-[5px]" />
+            Log Out
+          </button>
         </div>
       </div>
     </>
