@@ -30,52 +30,49 @@ const Product = () => {
         onClose={() => setSidebarOpen(false)}
       />
       {isMobile && (
-        <div className="fixed top-0 left-0 w-full bg-[#205FFF] text-white py-[12px] px-[16px] flex justify-between items-center z-50">
+        <div className="fixed top-0 left-0 w-full bg-[#205FFF] text-white py-3 px-4 flex justify-between items-center z-50">
           <button
-            className="text-white text-[18px] flex items-center"
+            className="text-white flex items-center"
             onClick={() => setSidebarOpen(!isSidebarOpen)}
           >
             {isSidebarOpen ? (
-              <XMarkIcon className="h-[24px] w-[24px]" />
+              <XMarkIcon className="h-6 w-6" />
             ) : (
-              <Bars3Icon className="h-[24px] w-[24px]" />
+              <Bars3Icon className="h-6 w-6" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">Posify</p>
+          <p className="font-semibold text-lg">Posify</p>
         </div>
       )}
 
       <div
-        className={`flex-1 ${
-          isMobile ? "ml-0 mt-[40px]" : "md:ml-[250px]"
-        } p-6`}
+        className={`flex-1 ${isMobile ? "ml-0 mt-10" : "md:ml-[250px]"} p-6`}
       >
         {/* Header */}
-        <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-[20px] font-semibold text-gray-800">Product</h1>
+        <div className="flex bg-white py-4 px-5 rounded-md shadow-sm justify-between items-center mb-5">
+          <h1 className="text-lg font-semibold text-gray-800">Product</h1>
           <div className="text-right">
-            <p className="text-[#1E1E1E] text-[14px] font-[600]">ShopName</p>
-            <p className="text-[#6E6E6E] text-[14px] font-[500]">Username</p>
+            <p className="text-gray-900 text-sm font-semibold">ShopName</p>
+            <p className="text-gray-600 text-sm font-medium">Username</p>
           </div>
         </div>
 
         {/* Buttons Section */}
-        <div className="flex justify-between bg-white py-[12px] px-[20px] rounded-md shadow-sm space-x-3 mb-[20px]">
-          <div className="flex items-center space-x-2">
-            <div className="bg-white p-[8px] rounded-md shadow-sm">
-            <select
-              className="border border-[#D0D0D0] rounded-md px-[16px] text-[12px] md:text-[16px] py-[8px] focus:outline-none text-[#1E1E1E] font-[500] focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px] truncate"
-              style={{ maxWidth: "770px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}
-            >
-              <option>All Category</option>
-              <option>Snack</option>
-              <option>Main Course</option>
-              <option>Very Long Category Name That Should Be Truncated</option>
-            </select>
+        <div className="flex justify-between bg-white py-3 px-5 rounded-md shadow-sm mb-5">
+          <div className="flex items-center space-x-3">
+            <div>
+              <select className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#205FFF] lg:w-[880px] md:w-[280px] w-[140px] truncate">
+                <option>All Category</option>
+                <option>Snack</option>
+                <option>Main Course</option>
+                <option>
+                  Very Long Category Name That Should Be Truncated
+                </option>
+              </select>
             </div>
             <Link
               href="/addProduct"
-              className="bg-[#205FFF] text-white px-[16px] py-[8px] rounded-md text-[12px] md:text-[14px] font-[500] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="bg-[#205FFF] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Add Product
             </Link>
@@ -86,36 +83,29 @@ const Product = () => {
         <div className="bg-white rounded-md shadow-md overflow-x-auto">
           <table className="table-auto w-full border-collapse">
             <thead>
-              <tr className="bg-[#EEF0F1] border-b">
-                <th className="p-[16px] text-left text-[14px]">Product</th>
-                <th className="p-[16px] text-left text-[14px] hidden md:table-cell">
+              <tr className="bg-gray-100 border-b">
+                <th className="p-4 text-left text-sm font-semibold">Product</th>
+                <th className="p-4 text-left text-sm font-semibold hidden md:table-cell">
                   Category
                 </th>
-                <th className="p-[16px] text-left text-[14px]">Price</th>
-                <th className="p-[16px] text-left text-[14px]">Actions</th>
+                <th className="p-4 text-left text-sm font-semibold">Price</th>
+                <th className="p-4 text-left text-sm font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b">
-                <td className="p-4 text-sm flex items-center space-x-3 border-b space-y-2">
+                <td className="p-4 text-sm flex items-center space-x-3">
                   <img
                     src="/logn&regist.png"
-                    alt="product"
+                    alt="Seblak product"
                     className="w-10 h-10 rounded-md"
                   />
-                  <span className="text-gray-800 word-break">Seblak</span>
+                  <span className="text-gray-800">Seblak</span>
                 </td>
-                <td className="p-[16px] text-[14px] border-b space-y-2 hidden md:table-cell">
-                  Snack
-                </td>
-                <td className="p-[16px] text-[14px] text-[#205FFF] border-b space-y-2">
-                  Rp. 10.000
-                </td>
-                <td className="p-[16px] text-[14px] space-y-2">
-                  <Link
-                    href="/editProduct"
-                    className="text-[#747474] hover:text-gray-700"
-                  >
+                <td className="p-4 text-sm hidden md:table-cell">Snack</td>
+                <td className="p-4 text-sm text-blue-600">Rp. 10.000</td>
+                <td className="p-4 text-sm">
+                  <Link href="#" className="text-gray-500 hover:text-gray-700">
                     <PencilSquareIcon className="h-5 w-5" />
                   </Link>
                 </td>
