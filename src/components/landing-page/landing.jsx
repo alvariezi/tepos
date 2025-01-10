@@ -175,7 +175,7 @@ const LandingPage = () => {
             </ul>
           </div>
           <Image
-            src="/cashier.png"
+            src="/kasir.png"
             alt="Cashier System Interface"
             width={600}
             height={400}

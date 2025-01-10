@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
-import {
-  Bars3Icon,
-  PencilSquareIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const Product = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [token, setToken] = useState("");
+  const [idAdmin, setIdAdmin] = useState("");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -20,6 +20,46 @@ const Product = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const tokenFromCookies = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+    if (tokenFromCookies) {
+      const tokenValue = tokenFromCookies.split("=")[1];
+      setToken(tokenValue);
+      console.log("Token from cookies:", tokenValue); 
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      const decoded = JSON.parse(atob(token.split(".")[1]));
+      setIdAdmin(decoded.idAdmin);
+      setUsername(decoded.username); 
+      console.log("Decoded token:", decoded); 
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (idAdmin && token) {
+      fetch(`/api/product/${idAdmin}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Fetched Data:", data); 
+          if (data && data.data) {
+            setProducts(data.data); 
+          } else {
+            console.error("Invalid data structure:", data);
+          }
+        })
+        .catch((error) => console.error("Error fetching products:", error));
+    }
+  }, [idAdmin, token]);
 
   return (
     <div className="flex h-screen bg-[#EEF0F1]">
@@ -52,8 +92,8 @@ const Product = () => {
         <div className="flex bg-white py-4 px-5 rounded-md shadow-sm justify-between items-center mb-5">
           <h1 className="text-lg font-semibold text-gray-800">Product</h1>
           <div className="text-right">
-            <p className="text-gray-900 text-sm font-semibold">ShopName</p>
-            <p className="text-gray-600 text-sm font-medium">Username</p>
+            <p className="text-[#1E1E1E] text-[14px] lg:text-[17px] font-[600]">{username}</p>
+            <p className="text-[#6E6E6E] text-[14px] font-[500]">Shop</p>
           </div>
         </div>
 
@@ -65,9 +105,6 @@ const Product = () => {
                 <option>All Category</option>
                 <option>Snack</option>
                 <option>Main Course</option>
-                <option>
-                  Very Long Category Name That Should Be Truncated
-                </option>
               </select>
             </div>
             <Link
@@ -93,23 +130,33 @@ const Product = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b">
-                <td className="p-4 text-sm flex items-center space-x-3">
-                  <img
-                    src="/logn&regist.png"
-                    alt="Seblak product"
-                    className="w-10 h-10 rounded-md"
-                  />
-                  <span className="text-gray-800">Seblak</span>
-                </td>
-                <td className="p-4 text-sm hidden md:table-cell">Snack</td>
-                <td className="p-4 text-sm text-blue-600">Rp. 10.000</td>
-                <td className="p-4 text-sm">
-                  <Link href="#" className="text-gray-500 hover:text-gray-700">
-                    <PencilSquareIcon className="h-5 w-5" />
-                  </Link>
-                </td>
-              </tr>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <tr key={product.id} className="border-b">
+                    <td className="p-4 text-sm flex items-center space-x-3">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-10 h-10 rounded-md"
+                      />
+                      <span className="text-gray-800">{product.name}</span>
+                    </td>
+                    <td className="p-4 text-sm hidden md:table-cell">{product.category}</td>
+                    <td className="p-4 text-sm text-blue-600">Rp. {product.price}</td>
+                    <td className="p-4 text-sm">
+                      <Link href={`/editProduct/${product.id}`} className="text-gray-500 hover:text-gray-700">
+                        <PencilSquareIcon className="h-5 w-5" />
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="p-4 text-center text-gray-600">
+                    No products available
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
