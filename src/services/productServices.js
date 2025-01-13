@@ -27,16 +27,13 @@ export const addProduct = async (idAdmin, productData) => {
   }
 };
 
-export const getAllProduct = async (id) => {
+export const getAllProduct = async (idAdmin) => {
   try {
-    await connectMongoDB();
-    return adminCol.findOne(
-      { _id: new mongoose.Types.ObjectId(id) },
-      { product: 1, _id: 0 }
-    );
+    await connectMongoDB(); 
+    const products = await productCol.find({ adminId: idAdmin });
+    return products;
   } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
+    throw new Error("Failed to fetch products");
   }
 };
 
