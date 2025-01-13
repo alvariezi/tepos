@@ -49,19 +49,19 @@ const Sidebar = ({ isOpen, isMobile, setIsOpen }) => {
           Posify
         </h2>
         <p className="text-[14px] md:text-[18px] text-center font-[500] text-[#747474] mb-[50px] hidden md:block">
-          Your POS assistant
+          Asisten POS anda
         </p>
 
         {/* Links */}
         <div className="mt-4">
-          <SidebarLink href="/history" Icon={ClockIcon} label="History" />
-          <SidebarLink href="/product" Icon={CubeIcon} label="Product" />
+          <SidebarLink href="/history" Icon={ClockIcon} label="Riwayat" />
+          <SidebarLink href="/product" Icon={CubeIcon} label="Produk" />
           <SidebarLink
             href="/cashier"
             Icon={ShoppingCartIcon}
-            label="Cashier"
+            label="kasir"
           />
-          <SidebarLink href="/settings" Icon={CogIcon} label="Settings" />
+          <SidebarLink href="/settings" Icon={CogIcon} label="Pengaturan" />
         </div>
 
         {/* Logout Button */}
@@ -71,7 +71,7 @@ const Sidebar = ({ isOpen, isMobile, setIsOpen }) => {
             className="flex items-center justify-center md:ml-[15px] md:py-[12px] md:px-[40px] py-[10px] px-[15px] ml-[15px] text-[14px] text-white bg-[#000000] hover:bg-gray-800 rounded-lg transition-all duration-300"
           >
             <ArrowLeftOnRectangleIcon className="h-5 w-5 mr-[5px]" />
-            Log Out
+            Keluar
           </button>
         </div>
       </div>

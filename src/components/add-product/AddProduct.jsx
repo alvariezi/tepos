@@ -3,10 +3,28 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Popup from "../popupLoginRegist/Popup";
+import { useRouter } from "next/navigation";
 
 const AddProduct = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [token, setToken] = useState("");
+  const [idAdmin, setIdAdmin] = useState("");
+  const [username, setUsername] = useState("");
+
+  const [popup, setPopup] = useState({
+    isOpen: false,
+    type: "",
+    message: "",
+  });
+
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -15,41 +33,119 @@ const AddProduct = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const tokenFromCookies = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+    if (tokenFromCookies) {
+      const tokenValue = tokenFromCookies.split("=")[1];
+      setToken(tokenValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      const decoded = JSON.parse(atob(token.split(".")[1]));
+      setIdAdmin(decoded.idAdmin);
+      setUsername(decoded.username);
+    }
+  }, [token]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const tokenFromCookies = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+    if (tokenFromCookies) {
+      const tokenValue = tokenFromCookies.split("=")[1];
+      const data = {
+        name: name,
+        category: category,
+        price: price,
+        description: description,
+        image: image,
+      };
+
+      try {
+        const response = await fetch("/api/product", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenValue}`,
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          setPopup({
+            isOpen: true,
+            type: "success",
+            message: "Produk berhasil ditambahkan.",
+          });
+          setTimeout(() => {
+            router.push("/product");
+          }, 2000);
+        } else {
+          setPopup({
+            isOpen: true,
+            type: "error",
+            message: result.message || "Gagal menambahkan produk.",
+          });
+        }
+      } catch (error) {
+        setPopup({
+          isOpen: true,
+          type: "error",
+          message: "Terjadi kesalahan saat menambahkan produk.",
+        });
+      }
+    } else {
+      setPopup({
+        isOpen: true,
+        type: "error",
+        message: "Token tidak ditemukan.",
+      });
+    }
+  };
+
   return (
     <div className="flex h-screen bg-[#EEF0F1]">
-      {/* Sidebar */}
       <Sidebar
         isMobile={isMobile}
         isOpen={isSidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
       {isMobile && (
-        <div className="fixed top-0 left-0 w-full bg-[#205FFF] text-white py-[12px] px-[16px] flex justify-between items-center z-50">
+        <div className="fixed top-0 left-0 w-full bg-[#205FFF] text-white py-3 px-4 flex justify-between items-center z-50">
           <button
-            className="text-white text-[18px] flex items-center"
+            className="text-white flex items-center"
             onClick={() => setSidebarOpen(!isSidebarOpen)}
           >
             {isSidebarOpen ? (
-              <XMarkIcon className="h-[24px] w-[24px]" />
+              <XMarkIcon className="h-6 w-6" />
             ) : (
-              <Bars3Icon className="h-[24px] w-[24px]" />
+              <Bars3Icon className="h-6 w-6" />
             )}
           </button>
-          <p className="font-[600] text-[18px]">Posify</p>
+          <p className="font-semibold text-lg">Posify</p>
         </div>
       )}
 
       <div
         className={`flex-1 ${
-          isMobile ? "ml-0 mt-[40px]" : "md:ml-[250px]"
+          isMobile ? "ml-0 mt-10" : "md:ml-[250px]"
         } p-6`}
       >
         {/* Header */}
         <div className="flex bg-white py-[16px] px-[20px] rounded-md shadow-sm justify-between items-center mb-[20px]">
-          <h1 className="text-[20px] font-semibold text-gray-800">Product</h1>
+          <h1 className="text-[20px] font-semibold text-gray-800">Produk</h1>
           <div className="text-right">
-            <p className="text-[#1E1E1E] text-[14px] font-[600]">ShopName</p>
-            <p className="text-[#6E6E6E] text-[14px] font-[500]">Username</p>
+          <p className="text-[#1E1E1E] text-[14px] lg:text-[17px] font-[600]">{username}</p>
+          <p className="text-[#6E6E6E] text-[14px] font-[500]">Shop</p>
           </div>
         </div>
 
@@ -74,106 +170,122 @@ const AddProduct = () => {
               />
             </svg>
           </button>
-          <h2 className="text-[15px] font-[500] text-[#1E1E1E]">Add Product</h2>
+          <h2 className="text-[15px] font-[500] text-[#1E1E1E]">Tambah Produk</h2>
         </div>
 
         {/* Product Form */}
-        <div className="bg-white rounded-md shadow-md p-[16px]">
-          <form>
+        <div className="bg-white rounded-md shadow-md p-4">
+          <form onSubmit={handleSubmit}>
             {/* Name Product */}
-            <div className="flex items-center mb-[16px]">
+            <div className="flex items-center mb-4">
               <label
-                htmlFor="nameProduct"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="name"
+                className="w-1/4 text-gray-700 font-semibold"
               >
-                Name Product
+                Nama Produk :
               </label>
               <input
                 type="text"
-                id="nameProduct"
-                placeholder=""
-                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-3/4 p-2 border border-gray-300 rounded-md"
+                required
+              />
+            </div>
+
+            {/* Category */}
+            <div className="flex items-center mb-4">
+              <label
+                htmlFor="category"
+                className="w-1/4 text-gray-700 font-semibold"
+              >
+                Kategori :
+              </label>
+              <input
+                type="text"
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-3/4 p-2 border border-gray-300 rounded-md"
+                required
               />
             </div>
 
             {/* Selling Price */}
-            <div className="flex items-center mb-[16px]">
+            <div className="flex items-center mb-4">
               <label
-                htmlFor="sellingPrice"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="price"
+                className="w-1/4 text-gray-700 font-semibold"
               >
-                Selling Price
+                Harga Jual :
               </label>
               <input
-                type="text"
-                id="sellingPrice"
-                placeholder=""
-                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                type="number"
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="w-3/4 p-2 border border-gray-300 rounded-md"
+                required
               />
             </div>
 
             {/* Description Product */}
             <div className="flex items-start mb-4">
               <label
-                htmlFor="DescriptionProduct"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="description"
+                className="w-1/4 text-gray-700 font-semibold"
               >
-                Description Product
+                Deskripsi Produk :
               </label>
               <textarea
-                id="DescriptionProduct"
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 rows="4"
-                placeholder=""
-                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                className="w-3/4 p-2 border border-gray-300 rounded-md"
+                required
               ></textarea>
             </div>
 
-            {/* Category */}
+            {/* Image URL */}
             <div className="flex items-center mb-4">
               <label
-                htmlFor="Category"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
+                htmlFor="imageUrl"
+                className="w-1/4 text-gray-700 font-semibold"
               >
-                Category
-              </label>
-              <select
-                id="Category"
-                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
-              >
-                <option>Pilih Kategori</option>
-                <option>Kategori 1</option>
-                <option>Kategori 2</option>
-              </select>
-            </div>
-
-            {/* Upload Image */}
-            <div className="flex items-center mb-4">
-              <label
-                htmlFor="imageUpload"
-                className="w-1/4 text-[#5F5F5F] font-[600] text-[14px]"
-              >
-                Upload Image
+                Gambar :
               </label>
               <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                className="w-[60%] ml-[40px] md:ml-0 md:w-3/4 p-[8px] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-[14px]"
+                type="text"
+                id="imageUrl"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                className="w-3/4 p-2 border border-gray-300 rounded-md"
+                required
               />
             </div>
 
-            {/* Button Save dan Delete */}
-            <div className="flex justify-end space-x-4">
+            {/* Save Button */}
+            <div className="flex justify-end">
               <button
-                type="button"
-                className="bg-[#205FFF] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                type="submit"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md"
               >
-                Save
+                Simpan
               </button>
             </div>
           </form>
         </div>
       </div>
+
+      {/* Render Popup */}
+      <Popup
+        isOpen={popup.isOpen}
+        type={popup.type}
+        message={popup.message}
+        onClose={() => setPopup({ ...popup, isOpen: false })}
+      />
     </div>
   );
 };
