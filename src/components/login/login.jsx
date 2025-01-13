@@ -112,10 +112,10 @@ const LoginForm = ({ initialToken }) => {
           </p>
         )}
         <p className="mb-[5px] text-[16px] md:text-[18px] font-bold text-center">
-          Hi, Welcome Back to Posify!
+          Hi, Selamat datang kembali di Posify!
         </p>
         <p className="mb-[50px] text-[12px] text-[#747474] md:text-[14px] font-bold text-center">
-          Please login with your account
+          Silakan masuk dengan akun anda
         </p>
         <form
           className="space-y-4 mx-auto max-w-[400px] w-full"
@@ -166,14 +166,14 @@ const LoginForm = ({ initialToken }) => {
             {isLoading ? "Loading..." : "Login"}
           </button>
           <p className="text-[12px] md:text-[14px] font-[600]">
-            Don’t have an account?
+            Tidak punya akun?
           </p>
           <button
             type="button"
             onClick={navigateToRegister}
             className="w-full bg-[#000000] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-gray-700 transition-all duration-300 ease-in-out border-[2px]"
           >
-            Registration
+            Registrasi
           </button>
         </form>
       </div>

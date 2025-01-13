@@ -49,7 +49,8 @@ const Product = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to fetch products");
+            console.warn("Failed to fetch products");
+            return null;
           }
           return response.json();
         })
@@ -57,10 +58,14 @@ const Product = () => {
           if (data && Array.isArray(data.data)) {
             setProducts(data.data);
           } else {
-            console.error("Invalid data structure:", data);
+            setProducts([]);
+            console.warn("No valid product data found");
           }
         })
-        .catch((error) => console.error("Error fetching products:", error));
+        .catch(() => {
+          setProducts([]);
+          console.warn("Error fetching products");
+        });
     }
   }, [idAdmin, token]);
 
@@ -88,8 +93,10 @@ const Product = () => {
       )}
 
       <div className={`flex-1 ${isMobile ? "ml-0 mt-10" : "md:ml-[250px]"} p-6`}>
+
+        {/* Header */}
         <div className="flex bg-white py-4 px-5 rounded-md shadow-sm justify-between items-center mb-5">
-          <h1 className="text-lg font-semibold text-gray-800">Product</h1>
+          <h1 className="text-lg font-semibold text-gray-800">Produk</h1>
           <div className="text-right">
             <p className="text-[#1E1E1E] text-[14px] lg:text-[17px] font-[600]">{username}</p>
             <p className="text-[#6E6E6E] text-[14px] font-[500]">Shop</p>
@@ -101,16 +108,16 @@ const Product = () => {
           <div className="flex items-center space-x-3">
             <div>
               <select className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#205FFF] lg:w-[820px] md:w-[280px] w-[140px] truncate">
-                <option>All Category</option>
-                <option>Snack</option>
-                <option>Main Course</option>
+                <option>Semua Kategori</option>
+                <option>Makanan</option>
+                <option>Minuman</option>
               </select>
             </div>
             <Link
               href="/addProduct"
               className="bg-[#205FFF] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              Add Product
+              Tambah Produk
             </Link>
           </div>
         </div>
@@ -119,10 +126,10 @@ const Product = () => {
           <table className="table-auto w-full border-collapse">
             <thead>
               <tr className="bg-gray-100 border-b">
-                <th className="p-4 text-left text-sm font-semibold">Product</th>
-                <th className="p-4 text-left text-sm font-semibold hidden md:table-cell">Category</th>
-                <th className="p-4 text-left text-sm font-semibold">Price</th>
-                <th className="p-4 text-left text-sm font-semibold">Actions</th>
+                <th className="p-4 text-left text-sm font-semibold">Produk</th>
+                <th className="p-4 text-left text-sm font-semibold hidden md:table-cell">kategori</th>
+                <th className="p-4 text-left text-sm font-semibold">Harga</th>
+                <th className="p-4 text-left text-sm font-semibold">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -148,7 +155,7 @@ const Product = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="p-4 text-center text-gray-600">No products available</td>
+                  <td colSpan="4" className="p-4 text-center text-gray-600">Tidak Ada Produk</td>
                 </tr>
               )}
             </tbody>

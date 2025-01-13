@@ -108,7 +108,7 @@ const RegisterForm = ({ initialToken }) => {
           Posify
         </h1>
         <p className="mb-[10px] text-[16px] md:text-[18px] font-bold text-center">
-          Create your account
+          Buat akun anda
         </p>
         <form
           className="space-y-4 mx-auto max-w-[400px] w-full"
@@ -182,10 +182,10 @@ const RegisterForm = ({ initialToken }) => {
             disabled={isLoading}
             className="w-full bg-[#205FFF] text-white font-[600] text-[15px] p-[8px] rounded-[10px] hover:bg-blue-700 transition-all duration-300 ease-in-out relative"
           >
-            {isLoading ? "Loading..." : "Registration"}
+            {isLoading ? "Loading..." : "Registrasi"}
           </button>
           <p className="mt-4 text-[14px] font-[600] text-[#000000]">
-            Already have an account?
+            Sudah punya akun?
           </p>
           <button
             type="button"
