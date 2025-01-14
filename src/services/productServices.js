@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { NextResponse } from "next/server";
 import adminCol from "@/models/admin";
 import productCol from "@/models/product";
 import { connectMongoDB } from "@/lib/mongodb";
@@ -7,9 +7,10 @@ export const addProduct = async (idAdmin, productData) => {
   try {
     await connectMongoDB();
 
-    console.log("Data diterima di Service:", productData); // Tambahkan log ini
-
-    const newProduct = await productCol.create({ ...productData, adminId: idAdmin });
+    const newProduct = await productCol.create({
+      ...productData,
+      adminId: idAdmin,
+    });
 
     const result = await adminCol.updateOne(
       { _id: idAdmin },
@@ -17,23 +18,33 @@ export const addProduct = async (idAdmin, productData) => {
     );
 
     if (result.modifiedCount === 0) {
-      throw new Error("Gagal menambahkan ID produk ke admin");
+      return NextResponse.json(
+        { message: "Gagal menambahkan ID produk ke admin" },
+        { status: 500 }
+      );
     }
 
     return newProduct;
   } catch (error) {
     console.error("Error adding product:", error);
-    throw new Error(error.message);
+    return NextResponse.json(
+      { message: error.message || "Gagal menambahkan produk" },
+      { status: 500 }
+    );
   }
 };
 
 export const getAllProduct = async (idAdmin) => {
   try {
-    await connectMongoDB(); 
+    await connectMongoDB();
     const products = await productCol.find({ adminId: idAdmin });
     return products;
   } catch (error) {
-    throw new Error("Failed to fetch products");
+    console.error("Error saat menghapus produk:", error);
+    return NextResponse.json(
+      { message: error.message || "Gagal menghapus produk" },
+      { status: 500 }
+    );
   }
 };
 
@@ -41,53 +52,74 @@ export const deleteProduct = async (idAdmin, productId) => {
   try {
     await connectMongoDB();
 
-    const admin = await adminCol.findById(idAdmin);
-    if (!admin) {
-      throw new Error("Admin tidak ditemukan");
+    if (!idAdmin || !productId) {
+      return NextResponse.json(
+        { message: "ID admin atau produk tidak valid" },
+        { status: 400 }
+      );
     }
 
-    const productIndex = admin.product.findIndex(
-      (product) => product._id.toString() === productId
+    const products = await productCol.findOneAndDelete({
+      _id: productId,
+      adminId: idAdmin,
+    });
+    if (!products) {
+      return NextResponse.json(
+        {
+          message: "Produk tidak ditemukan atau Anda tidak memiliki akses",
+        },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        message: "Produk berhasil dihapus",
+        data: { deletedProduct: products },
+      },
+      { status: 200 }
     );
-
-    if (productIndex === -1) {
-      throw new Error("Produk tidak ditemukan");
-    }
-
-    admin.product.splice(productIndex, 1);
-    await admin.save();
-
-    return { message: "Produk berhasil dihapus", productId };
   } catch (error) {
-    console.error("Error saat menghapus product:", error);
-    throw new Error(error.message);
+    console.error("Error saat menghapus produk:", error);
+    return NextResponse.json(
+      { message: error.message || "Gagal menghapus produk" },
+      { status: 500 }
+    );
   }
 };
 
-export const editProduct = async (idAdmin, productId, updatedData) => {
+export const updateProduct = async (idAdmin, productId, updatedData) => {
   try {
     await connectMongoDB();
 
-    const admin = await adminCol.findById(idAdmin);
-    if (!admin) {
-      throw new Error("Admin tidak ditemukan");
+    if (!idAdmin || !productId) {
+      return NextResponse.json(
+        { message: "ID admin atau produk tidak valid" },
+        { status: 400 }
+      );
     }
 
-    const productIndex = admin.product.findIndex(
-      (product) => product._id.toString() === productId
+    const products = await productCol.findOneAndUpdate(
+      { _id: productId, adminId: idAdmin },
+      updatedData,
+      { new: true }
     );
 
-    if (productIndex === -1) {
-      throw new Error("Produk tidak ditemukan");
+    if (!products) {
+      return NextResponse.json(
+        {
+          message: "Produk tidak ditemukan atau Anda tidak memiliki akses",
+        },
+        { status: 404 }
+      );
     }
 
-    Object.assign(admin.product[productIndex], updatedData);
-
-    await admin.save();
-
-    return admin.product[productIndex];
+    return products;
   } catch (error) {
-    console.error("Error saat merubah product:", error);
-    throw new Error(error.message);
+    console.error("Error saat memperbarui produk:", error);
+    return NextResponse.json(
+      { message: error.message || "Gagal memperbarui produk" },
+      { status: 500 }
+    );
   }
 };
