@@ -1,72 +1,54 @@
 import { getAllProduct } from "@/services/productServices";
 import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 export const GET = async (req, { params }) => {
   try {
-    // Resolving params (peraturan Next.js)
     const resolvedParams = await params;
     const { id } = resolvedParams;
 
-    // Validasi API Key
     const apiKey = req.headers.get("x-api-key");
     if (!apiKey || apiKey !== process.env.API_KEY) {
-      return new Response(JSON.stringify({ message: "Invalid API key" }), {
-        status: 403,
-        headers: { "Content-Type": "application/json" },
-      });
+      return NextResponse.json({ message: "Invalid API key" }, { status: 403 });
     }
 
-    // Validasi Authorization Header
     const authHeader = req.headers.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return new Response(JSON.stringify({ message: "No token provided" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      });
+      return NextResponse.json(
+        { message: "No token provided" },
+        { status: 401 }
+      );
     }
 
-    // Verifikasi JWT
     const token = authHeader.split(" ")[1];
     let decoded;
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
-      return new Response(JSON.stringify({ message: "Invalid token" }), {
-        status: 403,
-        headers: { "Content-Type": "application/json" },
-      });
+      return NextResponse.json({ message: "Invalid token" }, { status: 403 });
     }
 
-    // Cek jika token tidak sesuai dengan ID Admin
     if (decoded.idAdmin !== id) {
-      return new Response(JSON.stringify({ message: "Unauthorized access" }), {
-        status: 403,
-        headers: { "Content-Type": "application/json" },
-      });
+      return NextResponse.json(
+        { message: "Unauthorized access" },
+        { status: 403 }
+      );
     }
 
-    // Ambil produk dari database
     const products = await getAllProduct(id);
     if (!products || products.length === 0) {
-      return new Response(JSON.stringify({ message: "No products found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      });
+      return NextResponse.json(
+        { message: "No products found" },
+        { status: 404 }
+      );
     }
 
-    // Respons sukses
-    return new Response(
-      JSON.stringify({ message: "Products fetched", data: products }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+    return NextResponse.json(
+      { message: "Products fetched", data: products },
+      { status: 200 }
     );
   } catch (error) {
     console.error("Error in GET /api/product/[id]:", error);
-    return new Response(JSON.stringify({ message: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 };

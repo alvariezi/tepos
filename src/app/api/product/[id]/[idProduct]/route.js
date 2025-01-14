@@ -1,56 +1,58 @@
-import { deleteProduct, editProduct } from "@/services/productServices";
+import { deleteProduct, updateProduct } from "@/services/productServices";
+import { NextResponse } from "next/server";
 
-export const DELETE = async (req, context) => {
-  const params = await context.params;
-  const { id: idAdmin, idProduct } = params;
+export const DELETE = async (req, { params }) => {
+  const resolvedParams = await params;
+  const { id: idAdmin, idProduct } = resolvedParams;
 
   try {
     if (!idAdmin || !idProduct) {
-      return new Response(
-        JSON.stringify({ error: "Id admin dan id produk harus disediakan" }),
+      return NextResponse.json(
+        { message: "ID admin atau produk harus disediakan" },
         { status: 400 }
       );
     }
 
-    const result = await deleteProduct(idAdmin, idProduct);
-
-    return new Response(JSON.stringify(result), { status: 200 });
+    const data = await deleteProduct(idAdmin, idProduct);
+    return NextResponse.json(
+      { message: "Produk berhasil dihapus" },
+      { status: 200 }
+    );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message || "Terjadi kesalahan" }),
+    console.error("Error saat menghapus produk:", error.message);
+    return NextResponse.json(
+      { message: error.message || "Terjadi kesalahan saat menghapus produk" },
       { status: 500 }
     );
   }
 };
 
-export const PUT = async (req, context) => {
-  const params = await context.params;
-  const { id: idAdmin, idProduct } = params;
-
+export const PUT = async (req, { params }) => {
   try {
-    if (!idAdmin || !idProduct) {
-      return new Response(
-        JSON.stringify({ error: "Id admin dan id produk harus disediakan" }),
-        { status: 400 }
-      );
-    }
-
+    const resolvedParams = await params;
+    const { id: idAdmin, idProduct } = resolvedParams;
     const updatedData = await req.json();
 
-    if (!updatedData || Object.keys(updatedData).length === 0) {
-      return new Response(
-        JSON.stringify({ error: "Data untuk update tidak valid" }),
+    if (!idAdmin || !idProduct) {
+      return NextResponse.json(
+        { message: "ID admin atau produk tidak valid" },
         { status: 400 }
       );
     }
 
-    const result = await editProduct(idAdmin, idProduct, updatedData);
+    const updatedProduct = await updateProduct(idAdmin, idProduct, updatedData);
 
-    return new Response(JSON.stringify(result), { status: 200 });
+    return NextResponse.json(
+      {
+        message: "Produk berhasil diperbarui",
+        data: updatedProduct,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error("Error editing product:", error);
-    return new Response(
-      JSON.stringify({ error: error.message || "Terjadi kesalahan" }),
+    console.error("Error saat memperbarui produk:", error);
+    return NextResponse.json(
+      { message: error.message || "Gagal memperbarui produk" },
       { status: 500 }
     );
   }

@@ -7,7 +7,6 @@ const SECRET_KEY = process.env.JWT_SECRET;
 export const POST = async (req) => {
   try {
     const data = await req.json();
-    console.log("Request Body:", data); // Tambahkan log ini
 
     const { name, category, price, description, image } = data;
 
@@ -20,7 +19,6 @@ export const POST = async (req) => {
       );
     }
 
-    // Lanjutkan ke service
     const authHeader = req.headers.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return new Response(JSON.stringify({ error: "Token tidak valid" }), {
@@ -50,21 +48,19 @@ export const POST = async (req) => {
 
     return NextResponse.json(
       {
-        message: "Berhasil Menambahkan Product",
+        message: "Berhasil Menambahkan Product", data: newProduct,
       },
       {
         status: 201,
       }
-    )
+    );
   } catch (error) {
     console.error("Error adding product:", error.message);
     return NextResponse.json(
-      {
-        message: "Gagal Menambahkan Product",
-      },
+      { message: error.message || "Terjadi kesalahan saat menambahkan produk" },
       {
         status: 500,
       }
-    )
+    );
   }
 };
